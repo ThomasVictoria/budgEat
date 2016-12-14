@@ -35,6 +35,7 @@
         </activity>
         <activity android:name=".Activity.InscriptionActivity" />
         <activity android:name=".Activity.ConnexionActivity" />
+        <activity android:name=".Activity.CardActivity" />
 
         <activity android:name=".Activity.OrderActivity">
         <intent-filter>

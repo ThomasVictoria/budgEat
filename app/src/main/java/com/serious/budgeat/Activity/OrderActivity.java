@@ -66,7 +66,7 @@ public class OrderActivity extends AppCompatActivity {
         } else if(order.getVegetable() == null) {
             generateView("legumes", "legumes", "legume_id", "legume");
         } else {
-            Intent intent = new Intent(OrderActivity.this, MainActivity.class);
+            Intent intent = new Intent(OrderActivity.this, CardActivity.class);
             intent.putExtra("SESSION_EMAIL", session_email);
             intent.putExtra("SESSION_ID", session_id);
             intent.putExtra("SESSION_ORDER", (new Gson()).toJson(order));
