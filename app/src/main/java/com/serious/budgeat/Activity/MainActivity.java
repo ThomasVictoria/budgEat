@@ -31,11 +31,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Calendar c = Calendar.getInstance();
 
+        Calendar c = Calendar.getInstance();
         hour = c.get(Calendar.HOUR_OF_DAY);
 
-        if (hour < 14) {
+        if (hour > 14) {
             goToOrder();
         } else {
             goToReceit();
@@ -70,7 +70,4 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, ReceitActivity.class);
         startActivity(intent);
     }
-
-
-    
 }
