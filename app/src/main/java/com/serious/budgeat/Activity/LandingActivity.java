@@ -44,7 +44,7 @@ public class LandingActivity extends AppCompatActivity {
         pending.setResultCallback(new ResultCallback<ContainerHolder>() {
             @Override
             public void onResult(ContainerHolder containerHolder) {
-                ContainerHolderSingleton.setContainerHolder(containerHolder);
+                com.serious.budgeat.Activity.ContainerHolderSingleton.setContainerHolder(containerHolder);
                 Container container = containerHolder.getContainer();
 
                 if (!containerHolder.getStatus().isSuccess()) {
