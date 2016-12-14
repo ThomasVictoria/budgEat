@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.orderPageButton)
-    void gotoOrder(){
+    void goToOrder(){
         Intent intent = new Intent(MainActivity.this, OrderActivity.class);
         startActivity(intent);
     }

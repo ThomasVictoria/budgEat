@@ -39,7 +39,7 @@ public class OnBoardingActivity extends AppIntro {
 
     }
 
-    void gotoLanding(){
+    void goToLanding(){
         Intent intent = new Intent(this, LandingActivity.class);
         startActivity(intent);
     }
@@ -49,8 +49,7 @@ public class OnBoardingActivity extends AppIntro {
         super.onSkipPressed(currentFragment);
 
         Utils.pushStopOnboarding(this, "skip", currentSlide);
-        gotoLanding();
-
+        goToLanding();
     }
 
     @Override
@@ -58,7 +57,7 @@ public class OnBoardingActivity extends AppIntro {
         super.onDonePressed(currentFragment);
 
         Utils.pushStopOnboarding(this, "done", currentSlide);
-        gotoLanding();
+        goToLanding();
     }
 
     @Override
