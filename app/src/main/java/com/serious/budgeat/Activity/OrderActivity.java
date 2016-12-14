@@ -16,6 +16,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.google.gson.Gson;
 import com.serious.budgeat.Model.Order;
 import com.serious.budgeat.R;
 import com.serious.budgeat.Utils;
@@ -68,7 +69,7 @@ public class OrderActivity extends AppCompatActivity {
             Intent intent = new Intent(OrderActivity.this, MainActivity.class);
             intent.putExtra("SESSION_EMAIL", session_email);
             intent.putExtra("SESSION_ID", session_id);
-            intent.putExtra("SESSION_ORDER", );
+            intent.putExtra("SESSION_ORDER", (new Gson()).toJson(order));
             startActivity(intent);
         }
     }
@@ -89,7 +90,7 @@ public class OrderActivity extends AppCompatActivity {
                             for(int i = 0; i<item.length(); i++) {
                                 ImageButton btn = new ImageButton(getBaseContext());
 
-                                final String name = String.valueOf((String) item.getJSONObject(i).get(idName));
+                                final String name = String.valueOf((String) item.getJSONObject(i).get(nameName));
 
                                 btn.setId(Integer.valueOf((String) item.getJSONObject(i).get(idName)));
 
