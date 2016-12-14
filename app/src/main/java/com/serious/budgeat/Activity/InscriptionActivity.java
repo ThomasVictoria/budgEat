@@ -7,6 +7,7 @@ import android.net.Uri;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -116,9 +117,6 @@ public class InscriptionActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
 
@@ -170,7 +168,8 @@ public class InscriptionActivity extends AppCompatActivity {
                                     Boolean status = Boolean.valueOf(String.valueOf(response.get("success")));
                                     if (status) {
                                         Intent intent = new Intent(InscriptionActivity.this, MainActivity.class);
-                                        intent.putExtra("SESSION_ID", String.valueOf(email));
+                                        intent.putExtra("SESSION_EMAIL", String.valueOf(email));
+                                        intent.putExtra("SESSION_ID", (String) response.get("id"));
                                         startActivity(intent);
                                     } else {
                                         Toast.makeText(getApplicationContext(), "Creation du compte impossible", Toast.LENGTH_LONG).show();

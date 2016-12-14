@@ -3,6 +3,7 @@ package com.serious.budgeat.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,18 +41,6 @@ public class ConnexionActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Utils.pushOpenScreenEvent(this, screenName);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Utils.pushCloseScreenEvent(this, screenName);
-    }
-
     @OnClick(R.id.laucnchConnexion)
     void connexion(){
         final TextView email = (TextView)findViewById(R.id.email);
@@ -80,9 +69,15 @@ public class ConnexionActivity extends AppCompatActivity {
                         if (response.length() == 1){
                             Toast.makeText(getApplicationContext(), "Mauvais identifiants", Toast.LENGTH_LONG).show();
                         } else {
-                            Intent intent = new Intent(ConnexionActivity.this, MainActivity.class);
-                            intent.putExtra("SESSION_ID", String.valueOf(email));
-                            startActivity(intent);
+                            try {
+                                Intent intent = new Intent(ConnexionActivity.this, MainActivity.class);
+                                intent.putExtra("SESSION_EMAIL", String.valueOf(email));
+                                intent.putExtra("SESSION_ID", (String) response.get("id"));
+                                startActivity(intent);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
                         }
 
                     }
