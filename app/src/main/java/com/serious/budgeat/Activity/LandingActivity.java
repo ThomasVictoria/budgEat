@@ -3,6 +3,9 @@ package com.serious.budgeat.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +16,7 @@ import com.google.android.gms.tagmanager.Container;
 import com.google.android.gms.tagmanager.ContainerHolder;
 import com.google.android.gms.tagmanager.TagManager;
 import com.serious.budgeat.R;
+import com.serious.budgeat.Utils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -28,6 +32,7 @@ public class LandingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         TagManager tagManager = TagManager.getInstance(this);
 
@@ -48,6 +53,24 @@ public class LandingActivity extends AppCompatActivity {
                 }
             }
         }, TIMEOUT_FOR_CONTAINER_OPEN_MILLISECONDS, TimeUnit.MILLISECONDS);
+
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SharedPreferences getPrefs = PreferenceManager
+                        .getDefaultSharedPreferences(getBaseContext());
+                boolean isFirstStart = getPrefs.getBoolean("firstStart", true);
+                if (isFirstStart) {
+                    Intent i = new Intent(LandingActivity.this, OnBoardingActivity.class);
+                    startActivity(i);
+                    SharedPreferences.Editor e = getPrefs.edit();
+                    e.putBoolean("firstStart", false);
+                    e.apply();
+                }
+            }
+        });
+        t.start();
 
 
         setContentView(R.layout.activity_landing);
