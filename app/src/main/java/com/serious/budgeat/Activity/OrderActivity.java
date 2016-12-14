@@ -11,6 +11,8 @@ import butterknife.OnClick;
 
 public class OrderActivity extends AppCompatActivity {
 
+    static private final String screenName = "Order";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +22,19 @@ public class OrderActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Utils.pushOpenScreenEvent(this, screenName);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Utils.pushCloseScreenEvent(this, screenName);
+    }
+
     // Proto
     /*@OnClick(R.id.addOrderButton)
     void addOrder() {
