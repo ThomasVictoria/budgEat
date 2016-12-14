@@ -8,4 +8,6 @@
     <string name="addOrder">Ajouter un sandwich</string>
     <string name="load_error">Erreur</string>
     <string name="promesse">Promesse</string>
+    <string name="title_activity_on_boarding">OnBoardingActivity</string>
+    <string name="app_intro">Bienvenue</string>
 </resources>

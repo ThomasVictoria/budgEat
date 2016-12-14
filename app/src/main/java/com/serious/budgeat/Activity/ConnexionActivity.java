@@ -3,18 +3,10 @@ package com.serious.budgeat.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
-import com.androidnetworking.AndroidNetworking;
-import com.androidnetworking.common.Priority;
-import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.serious.budgeat.JsonFactory.JsonParserFactory;
 import com.serious.budgeat.R;
-
-import org.json.JSONObject;
+import com.serious.budgeat.Utils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
