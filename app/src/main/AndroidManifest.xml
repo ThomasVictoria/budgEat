@@ -39,11 +39,6 @@
         <activity android:name=".Activity.InscriptionActivity" />
         <activity android:name=".Activity.ConnexionActivity" />
 
-        <activity android:name=".Activity.OrderActivity"/>
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-
         <activity android:name=".Activity.OrderActivity" />
 
         <!-- Add preview activity. -->
@@ -60,6 +55,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".Activity.ReceitActivity"
+            android:label="@string/title_activity_receit"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

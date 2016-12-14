@@ -3,6 +3,7 @@ package com.serious.budgeat.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -88,7 +89,7 @@ public class ConnexionActivity extends AppCompatActivity {
                     }
                     @Override
                     public void onError(ANError error) {
-                        Log.d("leiqygfqer",error.toString());
+                        Log.d("leiqygfqer", error.toString());
                         Toast.makeText(getApplicationContext(), "Erreur reseaux", Toast.LENGTH_LONG).show();
                     }
                 });

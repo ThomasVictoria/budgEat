@@ -17,6 +17,7 @@ import com.serious.budgeat.R;
 import com.serious.budgeat.Utils;
 import com.serious.budgeat.Activity.ContainerHolderSingleton;
 
+import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.ButterKnife;
@@ -24,14 +25,26 @@ import butterknife.OnClick;
 
 
 public class MainActivity extends AppCompatActivity {
-
-    static private final String screenName = "Main";
-
+    private static final String screenName = "Main";
+    private static Integer hour = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Calendar c = Calendar.getInstance();
+
+        hour = c.get(Calendar.HOUR_OF_DAY);
+
+        if (hour < 14) {
+            goToOrder();
+        } else {
+            goToReceit();
+        }
+
+        Log.d("current hod", String.valueOf(hour));
+
         setContentView(R.layout.activity_main);
+
         ButterKnife.bind(this);
     }
 
@@ -53,6 +66,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    void goToReceit() {
+        Intent intent = new Intent(MainActivity.this, ReceitActivity.class);
+        startActivity(intent);
+    }
 
 
     

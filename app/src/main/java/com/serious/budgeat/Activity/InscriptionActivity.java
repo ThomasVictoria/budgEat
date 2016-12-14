@@ -7,6 +7,7 @@ import android.net.Uri;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -68,7 +69,6 @@ public class InscriptionActivity extends AppCompatActivity {
                             final ArrayList<String> ecoles = new ArrayList<String>();
 
                             for(int i=0; i<response.length();i++){
-
                                 ecoles.add("");
                                 ecoles.add(response.getJSONObject(i).getString("ecole"));
                             }
@@ -116,9 +116,6 @@ public class InscriptionActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
 
@@ -194,21 +191,5 @@ public class InscriptionActivity extends AppCompatActivity {
         } else {
             Toast.makeText(getApplicationContext(), "Le mot de passe doit faire plus de 6 characteres", Toast.LENGTH_LONG).show();
         }
-    }
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("Inscription Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
     }
 }

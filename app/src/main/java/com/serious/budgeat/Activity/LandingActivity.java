@@ -28,11 +28,9 @@ public class LandingActivity extends AppCompatActivity {
     private static final int TIMEOUT_FOR_CONTAINER_OPEN_MILLISECONDS = 2000;
     private static final String CONTAINER_ID = "GTM-PF85DB3";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         TagManager tagManager = TagManager.getInstance(this);
 
@@ -44,7 +42,7 @@ public class LandingActivity extends AppCompatActivity {
         pending.setResultCallback(new ResultCallback<ContainerHolder>() {
             @Override
             public void onResult(ContainerHolder containerHolder) {
-                ContainerHolderSingleton.setContainerHolder(containerHolder);
+                com.serious.budgeat.Activity.ContainerHolderSingleton.setContainerHolder(containerHolder);
                 Container container = containerHolder.getContainer();
 
                 if (!containerHolder.getStatus().isSuccess()) {
@@ -75,7 +73,6 @@ public class LandingActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_landing);
         ButterKnife.bind(this);
-
     }
 
     @Override

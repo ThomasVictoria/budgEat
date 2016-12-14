@@ -28,7 +28,6 @@ public class Utils {
     public static void pushCloseScreenEvent(Context context, String screenName) {
         Log.d("push close screen", screenName);
 
-
         DataLayer dataLayer = TagManager.getInstance(context).getDataLayer();
         dataLayer.pushEvent("closeScreen", DataLayer.mapOf("screenName", screenName));
     }
@@ -45,7 +44,6 @@ public class Utils {
         Log.d("push stop onboarding", "");
         Log.d("push stop action", action);
         Log.d("push stop slide", String.valueOf(departureSlide));
-
 
         DataLayer dataLayer = TagManager.getInstance(context).getDataLayer();
 
