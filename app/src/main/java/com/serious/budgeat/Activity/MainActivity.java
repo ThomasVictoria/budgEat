@@ -2,9 +2,10 @@ package com.serious.budgeat.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 
 import com.google.android.gms.common.api.PendingResult;
@@ -13,6 +14,8 @@ import com.google.android.gms.tagmanager.Container;
 import com.google.android.gms.tagmanager.ContainerHolder;
 import com.google.android.gms.tagmanager.TagManager;
 import com.serious.budgeat.R;
+import com.serious.budgeat.Utils;
+import com.serious.budgeat.Activity.ContainerHolderSingleton;
 
 import java.util.concurrent.TimeUnit;
 
@@ -40,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
 
         pending.setResultCallback(new ResultCallback<ContainerHolder>() {
             @Override
-            public void onResult(ContainerHolder containerHolder) {
+            public void onResult(@NonNull ContainerHolder containerHolder) {
                 ContainerHolderSingleton.setContainerHolder(containerHolder);
-                Container container = containerHolder.getContainer();
+                containerHolder.getContainer();
 
                 if (!containerHolder.getStatus().isSuccess()) {
                     Log.e("CuteAnimals", "failure loading container");
