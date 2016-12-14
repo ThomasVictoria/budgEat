@@ -8,4 +8,7 @@
     <string name="addOrder">Ajouter un sandwich</string>
     <string name="load_error">Erreur</string>
     <string name="promesse">Promesse</string>
+    <string name="email">Email</string>
+    <string name="password">Mot de passe</string>
+    <string name="title_activity_receit">ReceitActivity</string>
 </resources>

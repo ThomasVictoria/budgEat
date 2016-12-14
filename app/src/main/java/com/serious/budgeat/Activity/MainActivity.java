@@ -14,6 +14,7 @@ import com.google.android.gms.tagmanager.ContainerHolder;
 import com.google.android.gms.tagmanager.TagManager;
 import com.serious.budgeat.R;
 
+import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.ButterKnife;
@@ -24,12 +25,24 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int TIMEOUT_FOR_CONTAINER_OPEN_MILLISECONDS = 2000;
     private static final String CONTAINER_ID = "GTM-PF85DB3";
-    static private final String screenName = "Main";
+    private static final String screenName = "Main";
+    private static Integer hour = 0;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Calendar c = Calendar.getInstance();
+
+        hour = c.get(Calendar.HOUR_OF_DAY);
+
+        if (hour < 14) {
+            gotoOrder();
+        } else {
+            goToReceit();
+        }
+
+        Log.d("current hod", String.valueOf(hour));
 
         TagManager tagManager = TagManager.getInstance(this);
 
@@ -51,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }, TIMEOUT_FOR_CONTAINER_OPEN_MILLISECONDS, TimeUnit.MILLISECONDS);
 
-
         setContentView(R.layout.activity_main);
+
         ButterKnife.bind(this);
     }
 
@@ -74,6 +87,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    void goToReceit() {
+        Intent intent = new Intent(MainActivity.this, ReceitActivity.class);
+        startActivity(intent);
+    }
 
     private void displayErrorToUser(int stringKey) {
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();

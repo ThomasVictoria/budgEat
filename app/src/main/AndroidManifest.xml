@@ -13,8 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!-- Used for install referrer tracking-->
+        <!-- Used for install referrer tracking -->
         <service android:name="com.google.android.gms.tagmanager.InstallReferrerService" />
+
         <receiver
             android:name="com.google.android.gms.tagmanager.InstallReferrerReceiver"
             android:exported="true">
@@ -33,19 +34,25 @@
         </activity>
         <activity android:name=".Activity.InscriptionActivity" />
         <activity android:name=".Activity.ConnexionActivity" />
-        <activity android:name=".Activity.OrderActivity"></activity>
+        <activity android:name=".Activity.OrderActivity" />
 
-        <!--  Add preview activity. -->
+        <!-- Add preview activity. -->
         <activity
             android:name="com.google.android.gms.tagmanager.TagManagerPreviewActivity"
-            android:noHistory="true">  <!-- optional, removes the previewActivity from the activity stack. -->
+            android:noHistory="true"> <!-- optional, removes the previewActivity from the activity stack. -->
             <intent-filter>
                 <data android:scheme="tagmanager.c.com.serious.budgeat" />
+
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Activity.ReceitActivity"
+            android:label="@string/title_activity_receit"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

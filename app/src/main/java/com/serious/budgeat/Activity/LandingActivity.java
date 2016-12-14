@@ -3,21 +3,27 @@ package com.serious.budgeat.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.serious.budgeat.R;
+
+import java.util.Calendar;
+import java.util.TimeZone;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LandingActivity extends AppCompatActivity {
     static private final String screenName = "Landing";
+    static private Integer hour = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_landing);
-        ButterKnife.bind(this);
 
+
+        Log.d("current hod", String.valueOf(hour));
+        // ButterKnife.bind(this);
     }
 
     @Override
