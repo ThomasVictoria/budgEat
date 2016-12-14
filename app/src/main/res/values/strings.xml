@@ -12,4 +12,5 @@
     <string name="app_intro">Bienvenue</string>
     <string name="reOrder">Recommencer la commmande</string>
     <string name="payer">Payement</string>
+    <string name="valider">Valider payement</string>
 </resources>
