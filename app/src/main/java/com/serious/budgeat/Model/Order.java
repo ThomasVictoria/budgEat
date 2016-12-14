@@ -11,6 +11,44 @@ public class Order {
     public Integer meat;
     public Integer cheese;
 
+    public String vegetablesName;
+    public String breadName;
+    public String meatName;
+
+    public String getVegetablesName() {
+        return vegetablesName;
+    }
+
+    public void setVegetablesName(String vegetablesName) {
+        this.vegetablesName = vegetablesName;
+    }
+
+    public String getBreadName() {
+        return breadName;
+    }
+
+    public void setBreadName(String breadName) {
+        this.breadName = breadName;
+    }
+
+    public String getMeatName() {
+        return meatName;
+    }
+
+    public void setMeatName(String meatName) {
+        this.meatName = meatName;
+    }
+
+    public String getCheeseName() {
+        return cheeseName;
+    }
+
+    public void setCheeseName(String cheeseName) {
+        this.cheeseName = cheeseName;
+    }
+
+    public String cheeseName;
+
     public Integer getVegetable() {
         return vegetable;
     }

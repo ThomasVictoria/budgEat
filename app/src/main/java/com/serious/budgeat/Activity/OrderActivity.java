@@ -35,26 +35,45 @@ public class OrderActivity extends AppCompatActivity {
 
     static private final String screenName = "Order";
     public Order order = new Order();
+    private String session_email;
+    private String session_id;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order);
         ButterKnife.bind(this);
 
-        Order order = new Order();
-        if(order.getBread() == null) {
-            generateView("breads");
-        } else if(order.getMeat() == null) {
+        Bundle extras = getIntent().getExtras();
 
-        } else if(order.getCheese() == null) {
-
-        } else if(order.getVegetable() == null) {
-
+        if (extras != null) {
+            session_email = extras.getString("SESSION_EMAIL");
+            session_id = extras.getString("SESSION_ID");
         }
 
+        controller();
     }
 
-    private void generateView(String type){
+    private void controller() {
+        setContentView(R.layout.activity_order);
+        if(order.getBread() == null) {
+            generateView("breads", "breads", "bread_id", "bread");
+        } else if(order.getMeat() == null) {
+            generateView("meats", "viandes", "meat_id", "description");
+        } else if(order.getCheese() == null) {
+            generateView("cheese", "cheese", "cheese_id", "cheese");
+        } else if(order.getVegetable() == null) {
+            generateView("legumes", "legumes", "legume_id", "legume");
+        } else {
+            Intent intent = new Intent(OrderActivity.this, MainActivity.class);
+            intent.putExtra("SESSION_EMAIL", session_email);
+            intent.putExtra("SESSION_ID", session_id);
+            intent.putExtra("SESSION_ORDER", );
+            startActivity(intent);
+        }
+    }
+
+    private void generateView(final String type, final String realName, final String idName, final String nameName){
         AndroidNetworking.get("http://budgeat.stan.sh/"+type)
                 .setTag("test")
                 .setPriority(Priority.MEDIUM)
@@ -63,31 +82,48 @@ public class OrderActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            JSONArray breads = response.getJSONArray("breads");
+                            JSONArray item = response.getJSONArray(realName);
 
                             LinearLayout linearLayout = (LinearLayout)findViewById(R.id.itemsContainer);
 
-                            for(int i = 0; i<breads.length(); i++) {
+                            for(int i = 0; i<item.length(); i++) {
                                 ImageButton btn = new ImageButton(getBaseContext());
-                                btn.setId(Integer.valueOf((String) breads.getJSONObject(i).get("bread_id")));
+
+                                final String name = String.valueOf((String) item.getJSONObject(i).get(idName));
+
+                                btn.setId(Integer.valueOf((String) item.getJSONObject(i).get(idName)));
 
                                 Integer imageId = R.drawable.yolo;
 
                                 btn.setImageResource(imageId);
                                 Integer width = findViewById(R.id.activity_order).getWidth();
 
-                                Integer btnWidth = width / breads.length();
+                                Integer btnWidth = width / item.length();
                                 btn.setMinimumWidth(btnWidth);
                                 btn.setMinimumHeight(btnWidth);
                                 linearLayout.addView(btn);
 
                                 btn.setOnClickListener(new View.OnClickListener()   {
                                     public void onClick(View v)  {
-
+                                        Log.d("Button Log", String.valueOf(v.getId()));
+                                        if(type == "breads"){
+                                            order.setBread(v.getId());
+                                            order.setBreadName(name);
+                                        } else if (type == "meats") {
+                                            order.setMeat(v.getId());
+                                            order.setMeatName(name);
+                                        } else if (type == "cheese") {
+                                            order.setCheese(v.getId());
+                                            order.setCheeseName(name);
+                                        } else if (type == "legumes") {
+                                            order.setVegetable(v.getId());
+                                            order.setVegetablesName(name);
+                                        }
+                                        controller();
                                     }
                                 });
 
-                                Log.d("Button", "genrate "+imageId.toString());
+                                Log.d("Button", "genrate "+ String.valueOf(btn.getId()));
                             }
 
                         } catch (JSONException e) {
