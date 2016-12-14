@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">BudgEat</string>
+    <string name="connexion">Connexion</string>
+    <string name="inscription">M\'inscrire</string>
+    <string name="ou">ou</string>
+    <string name="Infos">Infos</string>
+    <string name="commander">Commander</string>
+    <string name="addOrder">Ajouter un sandwich</string>
+</resources>
