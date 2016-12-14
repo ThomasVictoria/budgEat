@@ -16,15 +16,11 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true">
 
-        <TextView
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/Infos"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/black" />
+            android:id="@+id/name"
+            android:inputType="textEmailAddress"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -32,19 +28,19 @@
             android:id="@+id/email"
             android:inputType="textEmailAddress"/>
 
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown" />
+
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/password"
             android:inputType="textPassword"/>
-
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/verifyPassword"
-            android:inputType="textPassword" />
 
         <Button
             android:layout_width="match_parent"
@@ -58,14 +54,13 @@
         android:id="@+id/loadingPanel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:background="@android:color/black"
-        android:alpha="0.5">
+        android:gravity="center" >
 
         <ProgressBar
+            android:id="@+id/ProgressBar01"
             android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:indeterminate="true" />
+            android:layout_height="100dp" />
+            android:indeterminateTint="@color/colorLoader" />
 
     </RelativeLayout>
 

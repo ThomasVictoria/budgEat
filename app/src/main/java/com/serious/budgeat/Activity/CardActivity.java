@@ -4,7 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.serious.budgeat.R;
+
 import com.serious.budgeat.Utils;
+
 
 public class CardActivity extends AppCompatActivity {
 
