@@ -5,11 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.serious.budgeat.R;
+import com.serious.budgeat.Utils;
 
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class OrderActivity extends AppCompatActivity {
+
+    static private final String screenName = "Order";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +22,19 @@ public class OrderActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Utils.pushOpenScreenEvent(this, screenName);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Utils.pushCloseScreenEvent(this, screenName);
+    }
+
     // Proto
     /*@OnClick(R.id.addOrderButton)
     void addOrder() {
