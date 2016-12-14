@@ -39,4 +39,5 @@ dependencies {
     compile 'com.amitshekhar.android:android-networking:0.3.0'
     compile 'com.amitshekhar.android:jackson-android-networking:0.3.0'
 
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
 }
