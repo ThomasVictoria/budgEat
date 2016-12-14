@@ -27,30 +27,41 @@ import butterknife.OnClick;
 public class MainActivity extends AppCompatActivity {
     private static final String screenName = "Main";
     private static Integer hour = 0;
+    private String session_email;
+    private String session_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Calendar c = Calendar.getInstance();
-        hour = c.get(Calendar.HOUR_OF_DAY);
+        Bundle extras = getIntent().getExtras();
 
-        if (hour > 14) {
-            goToOrder();
-        } else {
-            goToReceit();
+        if (extras != null) {
+            session_email = extras.getString("SESSION_EMAIL");
+            session_id = extras.getString("SESSION_ID");
         }
 
-        Log.d("current hod", String.valueOf(hour));
-
         setContentView(R.layout.activity_main);
-
         ButterKnife.bind(this);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        Calendar c = Calendar.getInstance();
+        hour = c.get(Calendar.HOUR_OF_DAY);
+
+        if (hour > 14) {
+            goToOrderHome();
+        } else {
+            goToReceit();
+        }
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null) {
+            session_email = extras.getString("email");
+            session_id = extras.getString("id");
+        }
         Utils.pushOpenScreenEvent(this, screenName);
     }
 
@@ -60,14 +71,21 @@ public class MainActivity extends AppCompatActivity {
         Utils.pushCloseScreenEvent(this, screenName);
     }
 
-    @OnClick(R.id.orderPageButton)
-    void goToOrder(){
-        Intent intent = new Intent(MainActivity.this, OrderActivity.class);
+
+
+    void goToOrderHome(){
+        Intent intent = new Intent(MainActivity.this, OrderHomeActivity.class);
+        intent.putExtra("SESSION_EMAIL", session_email);
+        intent.putExtra("SESSION_ID", session_id);
         startActivity(intent);
     }
 
     void goToReceit() {
         Intent intent = new Intent(MainActivity.this, ReceitActivity.class);
+        intent.putExtra("SESSION_EMAIL", session_email);
+        intent.putExtra("SESSION_ID", session_id);
         startActivity(intent);
     }
+
+
 }

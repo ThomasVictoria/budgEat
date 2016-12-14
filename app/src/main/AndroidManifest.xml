@@ -58,6 +58,10 @@
         <activity android:name=".Activity.ReceitActivity"
             android:label="@string/title_activity_receit"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".Activity.OrderHomeActivity"
+            android:label="@string/title_activity_receit"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

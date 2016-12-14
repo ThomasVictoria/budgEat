@@ -13,10 +13,20 @@ import com.serious.budgeat.Utils;
 public class ReceitActivity extends AppCompatActivity {
 
     private String screenName = "Receit";
+    private String session_id;
+    private String session_email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null) {
+            session_email = extras.getString("SESSION_EMAIL");
+            session_id = extras.getString("SESSION_ID");
+        }
+
         setContentView(R.layout.activity_receit);
     }
 
