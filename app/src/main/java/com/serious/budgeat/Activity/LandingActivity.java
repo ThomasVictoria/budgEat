@@ -10,6 +10,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LandingActivity extends AppCompatActivity {
+    static private final String screenName = "Landing";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +18,18 @@ public class LandingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_landing);
         ButterKnife.bind(this);
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Utils.pushOpenScreenEvent(this, screenName);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Utils.pushCloseScreenEvent(this, screenName);
     }
 
     @OnClick(R.id.buttonInscription)

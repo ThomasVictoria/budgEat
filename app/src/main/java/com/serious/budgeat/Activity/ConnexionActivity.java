@@ -21,6 +21,8 @@ import butterknife.OnClick;
 
 public class ConnexionActivity extends AppCompatActivity {
 
+    static private final String screenName = "Connexion";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +31,18 @@ public class ConnexionActivity extends AppCompatActivity {
         /*AndroidNetworking.initialize(getApplicationContext());
         AndroidNetworking.setParserFactory(new JsonParserFactory());*/
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Utils.pushOpenScreenEvent(this, screenName);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Utils.pushCloseScreenEvent(this, screenName);
     }
 
     @OnClick(R.id.laucnchConnexion)

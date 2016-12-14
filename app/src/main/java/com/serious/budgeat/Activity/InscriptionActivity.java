@@ -28,6 +28,8 @@ import butterknife.OnClick;
 
 public class InscriptionActivity extends AppCompatActivity {
 
+    static private final String screenName = "Inscription";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +63,18 @@ public class InscriptionActivity extends AppCompatActivity {
                         Log.d("TAG_LOCATIONS", error.toString());
                     }
                 });*/
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Utils.pushOpenScreenEvent(this, screenName);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Utils.pushCloseScreenEvent(this, screenName);
     }
 
     @OnClick(R.id.vaporisation)
