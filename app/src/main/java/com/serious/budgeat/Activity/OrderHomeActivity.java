@@ -13,6 +13,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.serious.budgeat.Model.Order;
 import com.serious.budgeat.R;
 import com.serious.budgeat.Utils;
 
@@ -26,6 +27,11 @@ import butterknife.OnClick;
 public class OrderHomeActivity extends AppCompatActivity {
     private static final String screenName = "OrderHome";
 
+    private String session_email;
+    private Order order;
+
+    private String id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,15 +39,10 @@ public class OrderHomeActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Bundle extras = getIntent().getExtras();
 
-        if (extras != null) {
-            session_email = extras.getString("SESSION_EMAIL");
-            session_id = extras.getString("SESSION_ID");
-        }
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-        Log.d("email pref", email);
-        Log.d("id pref", id);
+        id = preferences.getString("user_id", "");
+        session_email = preferences.getString("user_email", "");
 
         // AndroidNetworking.get("https://budgeat.stan.sh/users/"+ String.valueOf(session_id) +"/orders")
         AndroidNetworking.get("https://budgeat.stan.sh/users/1/orders")

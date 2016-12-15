@@ -49,13 +49,13 @@ public class OrderActivity extends AppCompatActivity {
     private void controller() {
         setContentView(R.layout.activity_order);
         if(order.getBread() == null) {
-            generateView("breads", "breads", "bread_id", "bread");
+            generateView("bread");
         } else if(order.getMeat() == null) {
-            generateView("meats", "viandes", "meat_id", "description");
+            generateView("meat");
         } else if(order.getCheese() == null) {
-            generateView("cheese", "cheese", "cheese_id", "cheese");
+            generateView("cheese");
         } else if(order.getVegetable() == null) {
-            generateView("legumes", "legumes", "legume_id", "legume");
+            generateView("legume");
         } else {
             Intent intent = new Intent(OrderActivity.this, CardActivity.class);
 
@@ -64,8 +64,8 @@ public class OrderActivity extends AppCompatActivity {
         }
     }
 
-    private void generateView(final String type, final String realName, final String idName, final String nameName){
-        AndroidNetworking.get("http://budgeat.stan.sh/"+type)
+    private void generateView(final String type){
+        AndroidNetworking.get("http://budgeat.stan.sh/"+type+"s")
                 .setTag("test")
                 .setPriority(Priority.MEDIUM)
                 .build()
@@ -73,16 +73,19 @@ public class OrderActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            JSONArray item = response.getJSONArray(realName);
+                            JSONArray item = response.getJSONArray(type+"s");
 
                             LinearLayout linearLayout = (LinearLayout)findViewById(R.id.itemsContainer);
 
                             for(int i = 0; i<item.length(); i++) {
                                 ImageButton btn = new ImageButton(getBaseContext());
 
-                                final String name = String.valueOf((String) item.getJSONObject(i).get(nameName));
+                                final String name = String.valueOf((String) item.getJSONObject(i).get(type));
 
-                                btn.setId(Integer.valueOf((String) item.getJSONObject(i).get(idName)));
+                                btn.setId(Integer.valueOf((String) item.getJSONObject(i).get(type+"_id")));
+
+                                Log.d("NAME", name);
+                                Log.d("ID", item.getJSONObject(i).get(type+"_id").toString());
 
                                 Integer imageId = R.drawable.yolo;
 
@@ -97,16 +100,16 @@ public class OrderActivity extends AppCompatActivity {
                                 btn.setOnClickListener(new View.OnClickListener()   {
                                     public void onClick(View v)  {
                                         Log.d("Button Log", String.valueOf(v.getId()));
-                                        if(type == "breads"){
+                                        if(type == "bread"){
                                             order.setBread(v.getId());
                                             order.setBreadName(name);
-                                        } else if (type == "meats") {
+                                        } else if (type == "meat") {
                                             order.setMeat(v.getId());
                                             order.setMeatName(name);
                                         } else if (type == "cheese") {
                                             order.setCheese(v.getId());
                                             order.setCheeseName(name);
-                                        } else if (type == "legumes") {
+                                        } else if (type == "legume") {
                                             order.setVegetable(v.getId());
                                             order.setVegetablesName(name);
                                         }
@@ -114,7 +117,7 @@ public class OrderActivity extends AppCompatActivity {
                                     }
                                 });
 
-                                Log.d("Button", "genrate "+ String.valueOf(btn.getId()));
+                                Log.d("Button", "genrate "+ order.getBread());
                             }
 
                         } catch (JSONException e) {
