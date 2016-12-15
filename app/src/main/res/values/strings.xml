@@ -22,4 +22,6 @@
     <string name="peremption_date">DD</string>
     <string name="peremptionMonth">MM</string>
     <string name="cryptogramme">cryptogramme</string>
+    <string name="heh">¯\\_(ツ)_/¯</string>
+    <string name="come_back">Les commandes ne sont plus disponible, revenez à 14h.</string>
 </resources>
