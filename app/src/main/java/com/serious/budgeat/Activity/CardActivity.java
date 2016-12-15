@@ -19,8 +19,6 @@ import butterknife.OnClick;
 public class CardActivity extends AppCompatActivity {
 
     static private final String screenName = "Card";
-    private String session_email;
-    private String session_id;
     private Order order;
 
     @Override
@@ -31,8 +29,6 @@ public class CardActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
-            session_email = extras.getString("SESSION_EMAIL");
-            session_id = extras.getString("SESSION_ID");
             order = (new Gson()).fromJson(extras.getString("SESSION_ORDER"), Order.class);
         }
 
@@ -52,8 +48,6 @@ public class CardActivity extends AppCompatActivity {
     @OnClick(R.id.buttonPayment)
     void gotoPayment(){
         Intent intent = new Intent(CardActivity.this, OrderActivity.class);
-        intent.putExtra("SESSION_EMAIL", session_email);
-        intent.putExtra("SESSION_ID", session_id);
         intent.putExtra("SESSION_ORDER", (new Gson()).toJson(order));
         startActivity(intent);
     }
@@ -61,8 +55,6 @@ public class CardActivity extends AppCompatActivity {
     @OnClick(R.id.buttonReOrder)
     void reorder(){
         Intent intent = new Intent(CardActivity.this, PaymentActivity.class);
-        intent.putExtra("SESSION_EMAIL", session_email);
-        intent.putExtra("SESSION_ID", session_id);
         startActivity(intent);
     }
 

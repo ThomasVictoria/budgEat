@@ -29,8 +29,6 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
     private static final String screenName = "Main";
-    private String session_email;
-    private String session_id;
     private Order order;
 
 
@@ -70,12 +68,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             goToReceit();
         }
-        Bundle extras = getIntent().getExtras();
-
-        if (extras != null) {
-            session_email = extras.getString("email");
-            session_id = extras.getString("id");
-        }
         Utils.pushOpenScreenEvent(this, screenName);
     }
 
@@ -87,8 +79,6 @@ public class MainActivity extends AppCompatActivity {
 
     void goToOrderHome() {
         Intent intent = new Intent(MainActivity.this, OrderHomeActivity.class);
-        intent.putExtra("SESSION_EMAIL", session_email);
-        intent.putExtra("SESSION_ID", session_id);
         startActivity(intent);
     }
 
@@ -100,8 +90,6 @@ public class MainActivity extends AppCompatActivity {
 
     void goToReceit() {
         Intent intent = new Intent(MainActivity.this, ReceitActivity.class);
-        intent.putExtra("SESSION_EMAIL", session_email);
-        intent.putExtra("SESSION_ID", session_id);
         startActivity(intent);
     }
 }

@@ -1,6 +1,8 @@
 package com.serious.budgeat.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,7 +32,6 @@ import butterknife.OnClick;
 public class PaymentActivity extends AppCompatActivity {
 
     private String session_email;
-    private String session_id;
     private Order order;
 
     @Override
@@ -41,11 +42,12 @@ public class PaymentActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
-            session_email = extras.getString("SESSION_EMAIL");
-            session_id = extras.getString("SESSION_ID");
             order = (new Gson()).fromJson(extras.getString("SESSION_ORDER"), Order.class);
         }
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        session_email = preferences.getString("user_email", "");
     }
 
     @OnClick(R.id.sendPayment)
@@ -102,8 +104,6 @@ public class PaymentActivity extends AppCompatActivity {
                         try {
                             if(response.get("success").toString()=="") {
                                 Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
-                                intent.putExtra("SESSION_EMAIL", session_email);
-                                intent.putExtra("SESSION_ID", session_id);
                                 startActivity(intent);
                             }
                         } catch (JSONException e) {
