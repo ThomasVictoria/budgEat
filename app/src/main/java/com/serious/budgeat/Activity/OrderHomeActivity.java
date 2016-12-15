@@ -13,6 +13,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.serious.budgeat.Model.Order;
 import com.serious.budgeat.R;
 import com.serious.budgeat.Utils;
 
@@ -25,6 +26,11 @@ import butterknife.OnClick;
 
 public class OrderHomeActivity extends AppCompatActivity {
     private static final String screenName = "OrderHome";
+
+    private String session_email;
+    private Order order;
+
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

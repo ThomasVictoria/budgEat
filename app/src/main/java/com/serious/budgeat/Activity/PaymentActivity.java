@@ -45,14 +45,13 @@ public class PaymentActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        id = preferences.getString("user_id", "");
+        session_email = preferences.getString("user_email", "");
+
         if (extras != null) {
             order = (new Gson()).fromJson(extras.getString("SESSION_ORDER"), Order.class);
         }
-
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-        session_email = preferences.getString("user_email", "");
-        session_id = preferences.getString("user_id", "");
     }
 
     @OnClick(R.id.sendPayment)
