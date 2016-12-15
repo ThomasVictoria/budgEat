@@ -100,7 +100,7 @@ public class PaymentActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         // la reponse de stann
                         try {
-                            if(response.get("success").toString()) {
+                            if(response.get("success").toString()=="") {
                                 Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
                                 intent.putExtra("SESSION_EMAIL", session_email);
                                 intent.putExtra("SESSION_ID", session_id);
