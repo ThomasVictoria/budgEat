@@ -36,21 +36,12 @@ public class OrderActivity extends AppCompatActivity {
 
     static private final String screenName = "Order";
     public Order order = new Order();
-    private String session_email;
-    private String session_id;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-
-        Bundle extras = getIntent().getExtras();
-
-        if (extras != null) {
-            session_email = extras.getString("SESSION_EMAIL");
-            session_id = extras.getString("SESSION_ID");
-        }
 
         controller();
     }
@@ -66,7 +57,8 @@ public class OrderActivity extends AppCompatActivity {
         } else if(order.getVegetable() == null) {
             generateView("legume");
         } else {
-            Intent intent = new Intent(OrderActivity.this, MainActivity.class);
+            Intent intent = new Intent(OrderActivity.this, CardActivity.class);
+
             intent.putExtra("SESSION_ORDER", (new Gson()).toJson(order));
             startActivity(intent);
         }

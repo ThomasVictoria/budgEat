@@ -1,6 +1,8 @@
 package com.serious.budgeat.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -65,25 +67,35 @@ public class ConnexionActivity extends AppCompatActivity {
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(final JSONObject response) {
                         if (response.length() == 1){
                             Toast.makeText(getApplicationContext(), "Mauvais identifiants", Toast.LENGTH_LONG).show();
                         } else {
                             try {
+                                final String id = (String) response.get("id");
+                                final String email = (String) response.get("email");
+                                Thread t = new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        SharedPreferences getPrefs = PreferenceManager
+                                                .getDefaultSharedPreferences(getBaseContext());
+                                        SharedPreferences.Editor e = getPrefs.edit();
+                                        e.putString("user_email", email);
+                                        e.putString("user_id", id);
+                                        e.apply();
+                                    }
+                                });
+                                t.start();
                                 Intent intent = new Intent(ConnexionActivity.this, MainActivity.class);
-                                intent.putExtra("SESSION_EMAIL", String.valueOf(email));
-                                intent.putExtra("SESSION_ID", (String) response.get("id"));
                                 startActivity(intent);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-
                         }
-
                     }
                     @Override
                     public void onError(ANError error) {
-                        Log.d("leiqygfqer",error.toString());
+                        Log.d("leiqygfqer", error.toString());
                         Toast.makeText(getApplicationContext(), "Erreur reseaux", Toast.LENGTH_LONG).show();
                     }
                 });

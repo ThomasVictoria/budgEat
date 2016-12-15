@@ -1,10 +1,12 @@
 package com.serious.budgeat.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -69,7 +71,6 @@ public class InscriptionActivity extends AppCompatActivity {
                             final ArrayList<String> ecoles = new ArrayList<String>();
 
                             for(int i=0; i<response.length();i++){
-
                                 ecoles.add("");
                                 ecoles.add(response.getJSONObject(i).getString("ecole"));
                             }
@@ -163,13 +164,28 @@ public class InscriptionActivity extends AppCompatActivity {
                         .getAsJSONObject(new JSONObjectRequestListener() {
                             @Override
                             public void onResponse(JSONObject response) {
-
                                 try {
                                     Boolean status = Boolean.valueOf(String.valueOf(response.get("success")));
                                     if (status) {
+                                        final String id = (String) response.get("id");
+                                        final String savedEmail = email.getText().toString();
+                                        Thread t = new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                SharedPreferences getPrefs = PreferenceManager
+                                                        .getDefaultSharedPreferences(getBaseContext());
+                                                SharedPreferences.Editor e = getPrefs.edit();
+                                                e.putString("user_email", savedEmail);
+                                                e.putString("user_id", id);
+                                                e.apply();
+                                            }
+                                        });
+                                        t.start();
+
+
+
+
                                         Intent intent = new Intent(InscriptionActivity.this, MainActivity.class);
-                                        intent.putExtra("SESSION_EMAIL", String.valueOf(email));
-                                        intent.putExtra("SESSION_ID", (String) response.get("id"));
                                         startActivity(intent);
                                     } else {
                                         Toast.makeText(getApplicationContext(), "Creation du compte impossible", Toast.LENGTH_LONG).show();
@@ -193,21 +209,5 @@ public class InscriptionActivity extends AppCompatActivity {
         } else {
             Toast.makeText(getApplicationContext(), "Le mot de passe doit faire plus de 6 characteres", Toast.LENGTH_LONG).show();
         }
-    }
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("Inscription Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
     }
 }
