@@ -18,18 +18,25 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/cardNumber"/>
+            android:id="@+id/cardNumber"
+            android:inputType="number"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/peremptionDate"/>
+            android:id="@+id/peremptionMonth"
+            android:inputType="date"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/cryptogramme"/>
+            android:id="@+id/peremptionYear"/>
 
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cryptogramme"
+            android:inputType="number"/>
 
         <Button
             android:layout_width="match_parent"
