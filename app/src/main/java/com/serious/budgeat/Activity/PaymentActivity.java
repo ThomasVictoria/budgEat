@@ -46,14 +46,13 @@ public class PaymentActivity extends AppCompatActivity {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         id = preferences.getString("user_id", "");
+        session_email = preferences.getString("user_email", "");
+
 
         if (extras != null) {
             order = (new Gson()).fromJson(extras.getString("SESSION_ORDER"), Order.class);
         }
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-        session_email = preferences.getString("user_email", "");
     }
 
     @OnClick(R.id.sendPayment)
@@ -158,7 +157,7 @@ public class PaymentActivity extends AppCompatActivity {
 
                                 Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
                                 intent.putExtra("SESSION_EMAIL", session_email);
-                                intent.putExtra("SESSION_ID", session_id);
+                                intent.putExtra("SESSION_ID", id);
                                 intent.putExtra("SESSION_ORDER", (new Gson()).toJson(order));
                                 startActivity(intent);
                             }
