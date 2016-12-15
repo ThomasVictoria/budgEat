@@ -26,7 +26,6 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
     private static final String screenName = "Main";
-    private static Integer hour = 0;
     private String session_email;
     private String session_id;
 
@@ -49,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         Calendar c = Calendar.getInstance();
-        hour = c.get(Calendar.HOUR_OF_DAY);
+        Integer hour = c.get(Calendar.HOUR_OF_DAY);
 
         if (hour > 14) {
             goToOrderHome();
@@ -70,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         Utils.pushCloseScreenEvent(this, screenName);
     }
-
-
 
     void goToOrderHome(){
         Intent intent = new Intent(MainActivity.this, OrderHomeActivity.class);
