@@ -51,7 +51,7 @@ public class CardActivity extends AppCompatActivity {
 
     @OnClick(R.id.buttonPayment)
     void gotoPayment(){
-        Intent intent = new Intent(CardActivity.this, OrderActivity.class);
+        Intent intent = new Intent(CardActivity.this, PaymentActivity.class);
         intent.putExtra("SESSION_EMAIL", session_email);
         intent.putExtra("SESSION_ID", session_id);
         intent.putExtra("SESSION_ORDER", (new Gson()).toJson(order));
@@ -60,7 +60,7 @@ public class CardActivity extends AppCompatActivity {
 
     @OnClick(R.id.buttonReOrder)
     void reorder(){
-        Intent intent = new Intent(CardActivity.this, PaymentActivity.class);
+        Intent intent = new Intent(CardActivity.this, OrderActivity.class);
         intent.putExtra("SESSION_EMAIL", session_email);
         intent.putExtra("SESSION_ID", session_id);
         startActivity(intent);
