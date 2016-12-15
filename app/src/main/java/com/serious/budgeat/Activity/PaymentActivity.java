@@ -33,7 +33,6 @@ import butterknife.OnClick;
 public class PaymentActivity extends AppCompatActivity {
 
     private String session_email;
-    private String session_id;
     private Order order;
 
     private String id;
@@ -49,11 +48,12 @@ public class PaymentActivity extends AppCompatActivity {
         id = preferences.getString("user_id", "");
 
         if (extras != null) {
-            session_email = extras.getString("SESSION_EMAIL");
-            session_id = extras.getString("SESSION_ID");
             order = (new Gson()).fromJson(extras.getString("SESSION_ORDER"), Order.class);
         }
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        session_email = preferences.getString("user_email", "");
     }
 
     @OnClick(R.id.sendPayment)
@@ -118,8 +118,6 @@ public class PaymentActivity extends AppCompatActivity {
                             if(response.get("success").toString()=="") {
                                 sendOrder();
                                 Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
-                                intent.putExtra("SESSION_EMAIL", session_email);
-                                intent.putExtra("SESSION_ID", session_id);
                                 intent.putExtra("SESSION_ORDER", (new Gson()).toJson(order));
                                 startActivity(intent);
                             }

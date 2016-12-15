@@ -17,8 +17,6 @@ import butterknife.OnClick;
 public class ReceitActivity extends AppCompatActivity {
 
     private String screenName = "Receit";
-    private String session_id;
-    private String session_email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +29,6 @@ public class ReceitActivity extends AppCompatActivity {
             session_email = extras.getString("SESSION_EMAIL");
             session_id = extras.getString("SESSION_ID");
         }
-
 
     }
 
