@@ -44,14 +44,14 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         String email = preferences.getString("user_email", "");
+        String id = preferences.getString("user_id", "");
 
         Log.d("email pref", email);
+        Log.d("id pref", id);
 
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
-            session_email = extras.getString("SESSION_EMAIL");
-            session_id = extras.getString("SESSION_ID");
             order = (new Gson()).fromJson(extras.getString("SESSION_ORDER"), Order.class);
         }
 
