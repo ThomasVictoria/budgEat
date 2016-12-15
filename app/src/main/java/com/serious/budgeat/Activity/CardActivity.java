@@ -33,13 +33,13 @@ public class CardActivity extends AppCompatActivity {
         }
 
         TextView bread = (TextView)findViewById(R.id.breadTextView);
-        bread.setText(order.getBreadName());
+        bread.setText(order.getBreadName()+" + ");
 
         TextView meat = (TextView)findViewById(R.id.meatTextView);
-        meat.setText(order.getMeatName());
+        meat.setText(order.getMeatName()+" + ");
 
         TextView vegetable = (TextView)findViewById(R.id.vegetableTextView);
-        vegetable.setText(order.getVegetablesName());
+        vegetable.setText(order.getVegetablesName()+" + ");
 
         TextView cheese = (TextView)findViewById(R.id.cheeseTextView);
         cheese.setText(order.getCheeseName());
@@ -47,7 +47,7 @@ public class CardActivity extends AppCompatActivity {
 
     @OnClick(R.id.buttonPayment)
     void gotoPayment(){
-        Intent intent = new Intent(CardActivity.this, OrderActivity.class);
+        Intent intent = new Intent(CardActivity.this, PaymentActivity.class);
 
         intent.putExtra("SESSION_ORDER", (new Gson()).toJson(order));
         startActivity(intent);
@@ -55,7 +55,7 @@ public class CardActivity extends AppCompatActivity {
 
     @OnClick(R.id.buttonReOrder)
     void reorder(){
-        Intent intent = new Intent(CardActivity.this, PaymentActivity.class);
+        Intent intent = new Intent(CardActivity.this, OrderActivity.class);
         startActivity(intent);
     }
 

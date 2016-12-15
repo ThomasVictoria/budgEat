@@ -2,10 +2,12 @@ package com.serious.budgeat.Activity;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -51,13 +53,13 @@ public class OrderActivity extends AppCompatActivity {
         if(order.getBread() == null) {
             generateView("bread");
         } else if(order.getMeat() == null) {
-            getResources().getIdentifier("sandwich_2", "drawable", getApplicationContext().getPackageName());
+            image.setImageResource(getResources().getIdentifier("sandwich_2", "drawable", getApplicationContext().getPackageName()));
             generateView("meat");
         } else if(order.getCheese() == null) {
-            getResources().getIdentifier("sandwich_3", "drawable", getApplicationContext().getPackageName());
+            image.setImageResource(getResources().getIdentifier("sandwich_3", "drawable", getApplicationContext().getPackageName()));
             generateView("cheese");
         } else if(order.getVegetable() == null) {
-            getResources().getIdentifier("sandwich_4", "drawable", getApplicationContext().getPackageName());
+            image.setImageResource(getResources().getIdentifier("sandwich_4", "drawable", getApplicationContext().getPackageName()));
             generateView("legume");
         } else {
             Intent intent = new Intent(OrderActivity.this, CardActivity.class);
@@ -79,6 +81,7 @@ public class OrderActivity extends AppCompatActivity {
                             JSONArray item = response.getJSONArray(type+"s");
 
                             LinearLayout linearLayout = (LinearLayout)findViewById(R.id.itemsContainer);
+                            LinearLayout linearLayoutText = (LinearLayout)findViewById(R.id.itemsTextContainer);
 
                             for(int i = 0; i<item.length(); i++) {
                                 ImageButton btn = new ImageButton(getBaseContext());
@@ -101,8 +104,11 @@ public class OrderActivity extends AppCompatActivity {
 
                                 textView.setMinimumWidth(btnWidth-1);
                                 textView.setMinimumHeight(btnWidth-1);
-                                linearLayout.addView(textView);
+                                textView.setGravity(Gravity.CENTER);
+                                textView.setTextColor(getResources().getColor(R.color.colorText));
+                                linearLayoutText.addView(textView);
 
+                                btn.setBackgroundColor(Color.TRANSPARENT);
                                 btn.setMinimumWidth(btnWidth-1);
                                 btn.setMinimumHeight(btnWidth-1);
                                 linearLayout.addView(btn);
