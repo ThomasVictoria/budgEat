@@ -29,10 +29,16 @@ public class OrderHomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        Bundle extras = getIntent().getExtras();
 
-        String email = preferences.getString("user_email", "");
-        String id = preferences.getString("user_id", "");
+        if (extras != null) {
+            session_email = extras.getString("SESSION_EMAIL");
+            session_id = extras.getString("SESSION_ID");
+        }
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         Log.d("email pref", email);
         Log.d("id pref", id);
@@ -64,8 +70,7 @@ public class OrderHomeActivity extends AppCompatActivity {
                     }
                 });
 
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+
     }
 
     @Override

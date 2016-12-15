@@ -25,14 +25,8 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/addOrder"
-                android:id="@+id/addOrderButton"/>
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:text="@string/commander"
-                android:id="@+id/orderButton"/>
+                android:id="@+id/beginOrder"/>
 
         </LinearLayout>
 

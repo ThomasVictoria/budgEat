@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -34,12 +35,17 @@ public class PaymentActivity extends AppCompatActivity {
     private String session_email;
     private Order order;
 
+    private String id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
         Bundle extras = getIntent().getExtras();
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        id = preferences.getString("user_id", "");
 
         if (extras != null) {
             order = (new Gson()).fromJson(extras.getString("SESSION_ORDER"), Order.class);
@@ -52,7 +58,14 @@ public class PaymentActivity extends AppCompatActivity {
 
     @OnClick(R.id.sendPayment)
     void sendPayment(){
-        Card card = new Card("4242424242424242", 9, 2017, "657");
+
+        TextView cardNumber = (TextView)findViewById(R.id.cardNumber);
+        TextView month = (TextView)findViewById(R.id.peremptionMonth);
+        TextView year = (TextView)findViewById(R.id.peremptionYear);
+        TextView cryptogramme = (TextView)findViewById(R.id.cryptogramme);
+
+
+        Card card = new Card(cardNumber.getText().toString(), 9, 2017, "657");
 
         Stripe stripe = null;
         try {
@@ -123,13 +136,15 @@ public class PaymentActivity extends AppCompatActivity {
     private void sendOrder(){
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("stripeToken", token.getId().toString());
-            jsonObject.put("lastname", session_email);
+            jsonObject.put("has_charcut", order.getMeat().toString());
+            jsonObject.put("has_legume", order.getVegetable().toString());
+            jsonObject.put("bread_type", order.getBread().toString());
+            jsonObject.put("has_cheese", order.getCheese().toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        AndroidNetworking.post("https://budgeat.stan.sh/user/"+  +"/order")
+        AndroidNetworking.post("https://budgeat.stan.sh/user/"+ id +"/order")
                 .addJSONObjectBody(jsonObject)
                 .setTag("test")
                 .setPriority(Priority.MEDIUM)
@@ -139,7 +154,7 @@ public class PaymentActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         // la reponse de stann
                         try {
-                            if(response.get("success").toString()) {
+                            if(response.get("success").toString() =="") {
 
                                 Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
                                 intent.putExtra("SESSION_EMAIL", session_email);
