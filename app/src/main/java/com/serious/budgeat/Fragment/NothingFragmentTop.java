@@ -11,14 +11,14 @@ import android.view.ViewGroup;
 import com.serious.budgeat.R;
 
 
-public class NothingFragment extends Fragment {
+public class NothingFragmentTop extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_nothing, container, false);
-        
+
         return view;
     }
 

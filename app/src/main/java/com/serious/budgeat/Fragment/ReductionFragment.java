@@ -36,8 +36,6 @@ public class ReductionFragment extends Fragment {
         String id = this.getArguments().getString("id");
         String email = this.getArguments().getString("mail");
 
-        https://budgeat.stan.sh/user/
-
         AndroidNetworking.get("https://budgeat.stan.sh/user/"+email)
                 .setTag("test")
                 .setPriority(Priority.MEDIUM)

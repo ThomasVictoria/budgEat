@@ -4,11 +4,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
-import com.serious.budgeat.Fragment.NothingFragment;
+import com.serious.budgeat.Fragment.NothingFragmentBottom;
+import com.serious.budgeat.Fragment.NothingFragmentTop;
+import com.serious.budgeat.Fragment.OrderFragment;
 import com.serious.budgeat.Fragment.ReductionFragment;
-import com.google.gson.Gson;
 import com.serious.budgeat.Model.Order;
 import com.serious.budgeat.R;
 import com.serious.budgeat.Utils;
@@ -38,10 +38,6 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
 
-        if (extras != null) {
-            order = (new Gson()).fromJson(extras.getString("SESSION_ORDER"), Order.class);
-        }
-
         generateFragment(id, email);
 
         ButterKnife.bind(this);
@@ -50,17 +46,36 @@ public class MainActivity extends AppCompatActivity {
 
     private void generateFragment(String id, String email){
 //        getReductionView(id, email);
-        getNothingFragment();
+//        getNothingFragment();
+        getOrderFragment(id);
+    }
+
+    public void getOrderFragment(String id){
+        OrderFragment orderFragment = new OrderFragment();
+        // In case this activity was started with special instructions from an
+        // Intent, pass the Intent's extras to the fragment as arguments
+        orderFragment.setArguments(getIntent().getExtras());
+
+        Bundle bundle = new Bundle();
+
+        bundle.putString("id", id);
+
+        orderFragment.setArguments(bundle);
+        // Add the fragment to the 'fragment_container' FrameLayout
+        getSupportFragmentManager().beginTransaction().add(R.id.bottomFragment, orderFragment).commit();
     }
 
     public void getNothingFragment(){
 
-        NothingFragment nothingFragment = new NothingFragment();
+        NothingFragmentTop nothingFragmentTop = new NothingFragmentTop();
+        NothingFragmentBottom nothingFragmentBottom = new NothingFragmentBottom();
         // In case this activity was started with special instructions from an
         // Intent, pass the Intent's extras to the fragment as arguments
-        nothingFragment.setArguments(getIntent().getExtras());
+        nothingFragmentTop.setArguments(getIntent().getExtras());
+        nothingFragmentBottom.setArguments(getIntent().getExtras());
         // Add the fragment to the 'fragment_container' FrameLayout
-        getSupportFragmentManager().beginTransaction().add(R.id.topFragment, nothingFragment).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.topFragment, nothingFragmentTop).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.bottomFragment, nothingFragmentBottom).commit();
     }
 
     public void getReductionView(String id, String email){
