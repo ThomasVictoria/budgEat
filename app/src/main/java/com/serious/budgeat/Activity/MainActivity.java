@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.serious.budgeat.Fragment.NothingFragment;
+import com.serious.budgeat.Fragment.OrderFragment;
 import com.serious.budgeat.Fragment.ReductionFragment;
 import com.google.gson.Gson;
 import com.serious.budgeat.Model.Order;
@@ -38,10 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
 
-        if (extras != null) {
-            order = (new Gson()).fromJson(extras.getString("SESSION_ORDER"), Order.class);
-        }
-
         generateFragment(id, email);
 
         ButterKnife.bind(this);
@@ -50,7 +47,23 @@ public class MainActivity extends AppCompatActivity {
 
     private void generateFragment(String id, String email){
 //        getReductionView(id, email);
-        getNothingFragment();
+//        getNothingFragment();
+        getOrderFragment(id);
+    }
+
+    public void getOrderFragment(String id){
+        OrderFragment orderFragment = new OrderFragment();
+        // In case this activity was started with special instructions from an
+        // Intent, pass the Intent's extras to the fragment as arguments
+        orderFragment.setArguments(getIntent().getExtras());
+
+        Bundle bundle = new Bundle();
+
+        bundle.putString("id", id);
+
+        orderFragment.setArguments(bundle);
+        // Add the fragment to the 'fragment_container' FrameLayout
+        getSupportFragmentManager().beginTransaction().add(R.id.bottomFragment, orderFragment).commit();
     }
 
     public void getNothingFragment(){
