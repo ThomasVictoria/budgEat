@@ -16,7 +16,12 @@
     <string name="reOrder">Recommencer la commmande</string>
     <string name="payer">Payement</string>
     <string name="valider">Valider payement</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fragment_test">coucou</string>
+    <string name="me_connecter">ME CONNECTER</string>
+    <string name="card_number">numéro de carte</string>
+    <string name="peremption_date">DD</string>
+    <string name="peremptionMonth">MM</string>
+    <string name="cryptogramme">cryptogramme</string>
+    <string name="heh">¯\\_(ツ)_/¯</string>
+    <string name="come_back">Les commandes ne sont plus disponible, revenez à 14h.</string>
 </resources>

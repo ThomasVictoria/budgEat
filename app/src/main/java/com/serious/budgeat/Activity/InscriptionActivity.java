@@ -137,7 +137,6 @@ public class InscriptionActivity extends AppCompatActivity {
     @OnClick(R.id.vaporisation)
     void inscription() {
 
-        EditText name = (EditText) findViewById(R.id.name);
         final EditText email = (EditText) findViewById(R.id.email);
         EditText password = (EditText) findViewById(R.id.password);
 
@@ -148,7 +147,6 @@ public class InscriptionActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.put("email", email.getText().toString());
-                    jsonObject.put("name", name.getText().toString());
                     jsonObject.put("password", password.getText().toString());
                     jsonObject.put("ecole_id", school_id);
                 } catch (JSONException e) {

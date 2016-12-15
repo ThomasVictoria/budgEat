@@ -33,6 +33,7 @@ import butterknife.OnClick;
 public class PaymentActivity extends AppCompatActivity {
 
     private String session_email;
+    private String session_id;
     private Order order;
 
     private String id;
@@ -48,20 +49,18 @@ public class PaymentActivity extends AppCompatActivity {
         id = preferences.getString("user_id", "");
         session_email = preferences.getString("user_email", "");
 
-
         if (extras != null) {
             order = (new Gson()).fromJson(extras.getString("SESSION_ORDER"), Order.class);
         }
-
     }
 
     @OnClick(R.id.sendPayment)
     void sendPayment(){
 
         TextView cardNumber = (TextView)findViewById(R.id.cardNumber);
-        TextView month = (TextView)findViewById(R.id.peremptionMonth);
-        TextView year = (TextView)findViewById(R.id.peremptionYear);
-        TextView cryptogramme = (TextView)findViewById(R.id.cryptogramme);
+        TextView month = (TextView) findViewById(R.id.peremptionMonth);
+        TextView year = (TextView) findViewById(R.id.peremptionYear);
+        TextView cryptogramme = (TextView) findViewById(R.id.cryptogramme);
 
 
         Card card = new Card(cardNumber.getText().toString(), 9, 2017, "657");
@@ -156,8 +155,6 @@ public class PaymentActivity extends AppCompatActivity {
                             if(response.get("success").toString() =="") {
 
                                 Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
-                                intent.putExtra("SESSION_EMAIL", session_email);
-                                intent.putExtra("SESSION_ID", id);
                                 intent.putExtra("SESSION_ORDER", (new Gson()).toJson(order));
                                 startActivity(intent);
                             }

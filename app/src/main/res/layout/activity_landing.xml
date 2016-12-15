@@ -12,14 +12,12 @@
 
 
     <ImageView
-        android:id="@+id/home_logo"
+        android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/cast_album_art_placeholder"/>
-
-
+        android:src="@drawable/logo"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,24 +27,25 @@
         android:layout_alignParentStart="true"
         android:gravity="center_horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:text="@string/promesse" />
-
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="@string/connexion"
-            android:id="@+id/buttonConnexion" />
+            android:id="@+id/buttonConnexion"
+            android:text="@string/me_connecter"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:layout_width="270dp"
+            android:layout_height="45dp"
+            android:background="@drawable/button_shape_connection"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center" >
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            >
 
             <View
                 android:layout_weight=".45"
@@ -59,7 +58,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ou"
                 android:layout_weight=".10"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                />
 
             <View
                 android:layout_weight=".45"
@@ -71,11 +71,14 @@
         </LinearLayout>
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
             android:text="@string/inscription"
-            android:id="@+id/buttonInscription" />
-
+            android:id="@+id/buttonInscription"
+            android:layout_width="270dp"
+            android:layout_height="45dp"
+            android:background="@drawable/button_shape_inscription"
+            />
     </LinearLayout>
 
 

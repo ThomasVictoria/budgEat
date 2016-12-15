@@ -27,14 +27,26 @@ public class OnBoardingActivity extends AppIntro {
         Utils.pushStartOnboarding(this);
 
 
-        String title = "titre";
-        String description = "coucou";
-        Integer image = R.drawable.yolo;
 
-        addSlide(AppIntroFragment.newInstance(title, description, image, Color.BLUE));
-        addSlide(AppIntroFragment.newInstance(title, description, image, Color.RED));
-        addSlide(AppIntroFragment.newInstance(title, description, image, Color.YELLOW));
-        addSlide(AppIntroFragment.newInstance(title, description, image, Color.GREEN));
+        String title = "Personnalise ton sandwich";
+        String description = "Choisit ton pain, ta viande, ton fromage & tes légumes";
+        int image = R.drawable.illu_sandwich;
+
+        addSlide(AppIntroFragment.newInstance(title, description, image, Color.parseColor("#ffd6a0")));
+
+
+        title = "Reçois des réductions";
+        description = "Soit débité à minuit pour profiter d'1% de réduction par étudiant de ton " +
+                "école qui commande";
+        image = R.drawable.illu_reduc;
+        addSlide(AppIntroFragment.newInstance(title, description, image, Color.parseColor("#ffd6a0")));
+
+
+        title = "Livré à l'école";
+        description = "BudgEat dépose ton sandwich à ton école entre 12 et 13h";
+        image = R.drawable.illu_livraison;
+
+        addSlide(AppIntroFragment.newInstance(title, description, image, Color.parseColor("#ffd6a0")));
 
 
     }

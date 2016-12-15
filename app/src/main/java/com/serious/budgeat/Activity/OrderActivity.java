@@ -1,13 +1,11 @@
 package com.serious.budgeat.Activity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.icu.text.DateFormat;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -28,9 +26,6 @@ import org.json.JSONObject;
 import java.lang.reflect.Field;
 
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-
-import static android.R.interpolator.linear;
 
 public class OrderActivity extends AppCompatActivity {
 
@@ -81,13 +76,11 @@ public class OrderActivity extends AppCompatActivity {
                                 ImageButton btn = new ImageButton(getBaseContext());
 
                                 final String name = String.valueOf((String) item.getJSONObject(i).get(type));
+                                final Integer id = Integer.valueOf((String) item.getJSONObject(i).get(type+"_id"));
 
-                                btn.setId(Integer.valueOf((String) item.getJSONObject(i).get(type+"_id")));
+                                btn.setId(id);
 
-                                Log.d("NAME", name);
-                                Log.d("ID", item.getJSONObject(i).get(type+"_id").toString());
-
-                                Integer imageId = R.drawable.yolo;
+                                Integer imageId = getResId(type + id.toString(), Drawable.class);
 
                                 btn.setImageResource(imageId);
                                 Integer width = findViewById(R.id.activity_order).getWidth();
@@ -141,6 +134,16 @@ public class OrderActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         Utils.pushCloseScreenEvent(this, screenName);
+    }
+
+    public static int getResId(String resName, Class<?> c) {
+        try {
+            Field idField = c.getDeclaredField(resName);
+            return idField.getInt(idField);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 
 }

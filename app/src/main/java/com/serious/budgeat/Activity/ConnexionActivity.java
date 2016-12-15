@@ -43,7 +43,7 @@ public class ConnexionActivity extends AppCompatActivity {
 
     }
 
-    @OnClick(R.id.laucnchConnexion)
+    @OnClick(R.id.buttonConnexion)
     void connexion(){
         final TextView email = (TextView)findViewById(R.id.email);
         TextView pass = (TextView)findViewById(R.id.password);
