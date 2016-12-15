@@ -10,6 +10,9 @@
     <string name="promesse">Promesse</string>
     <string name="title_activity_on_boarding">OnBoardingActivity</string>
     <string name="app_intro">Bienvenue</string>
+    <string name="email">Email</string>
+    <string name="password">Mot de passe</string>
+    <string name="title_activity_receit">ReceitActivity</string>
     <string name="reOrder">Recommencer la commmande</string>
     <string name="payer">Payement</string>
     <string name="valider">Valider payement</string>
