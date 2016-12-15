@@ -29,7 +29,7 @@ public class OnBoardingActivity extends AppIntro {
 
         String title = "titre";
         String description = "coucou";
-        Integer image = R.drawable.yolo;
+        Integer image = R.drawable.comte;
 
         addSlide(AppIntroFragment.newInstance(title, description, image, Color.BLUE));
         addSlide(AppIntroFragment.newInstance(title, description, image, Color.RED));

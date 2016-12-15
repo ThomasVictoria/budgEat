@@ -36,22 +36,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-        setContentView(R.layout.activity_main);
-
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         String email = preferences.getString("user_email", "");
         String id = preferences.getString("user_id", "");
-
-        Log.d("email pref", email);
-        Log.d("id pref", id);
 
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
             order = (new Gson()).fromJson(extras.getString("SESSION_ORDER"), Order.class);
         }
+/*
+        if (findViewById(R.id.fragment_container) != null) {
+            if (savedInstanceState != null) {
+                return;
+            }
+            CurrentReductionFragment firstFragment = new CurrentReductionFragment();
+            firstFragment.setArguments(getIntent().getExtras());
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, firstFragment).commit();
+        }
+*/
 
         ButterKnife.bind(this);
     }
@@ -82,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @OnClick(R.id.orderPageButton)
+    // @OnClick(R.id.orderPageButton)
     void goToOrder() {
         Intent intent = new Intent(MainActivity.this, OrderActivity.class);
         startActivity(intent);

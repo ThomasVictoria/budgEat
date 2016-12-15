@@ -16,4 +16,5 @@
     <string name="reOrder">Recommencer la commmande</string>
     <string name="payer">Payement</string>
     <string name="valider">Valider payement</string>
+    <string name="fragment_test">coucou</string>
 </resources>

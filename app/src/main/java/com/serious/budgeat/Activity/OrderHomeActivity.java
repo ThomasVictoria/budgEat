@@ -33,6 +33,8 @@ public class OrderHomeActivity extends AppCompatActivity {
 
         String email = preferences.getString("user_email", "");
         String id = preferences.getString("user_id", "");
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
         Log.d("email pref", email);
         Log.d("id pref", id);
@@ -64,8 +66,7 @@ public class OrderHomeActivity extends AppCompatActivity {
                     }
                 });
 
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+
     }
 
     @Override
@@ -80,7 +81,7 @@ public class OrderHomeActivity extends AppCompatActivity {
         Utils.pushCloseScreenEvent(this, screenName);
     }
 
-    @OnClick(R.id.orderPageButton)
+    //@OnClick(R.id.orderPageButton)
     void goToOrder(){
         Intent intent = new Intent(OrderHomeActivity.this, OrderActivity.class);
         startActivity(intent);

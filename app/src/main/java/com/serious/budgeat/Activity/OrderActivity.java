@@ -84,7 +84,7 @@ public class OrderActivity extends AppCompatActivity {
 
                                 btn.setId(Integer.valueOf((String) item.getJSONObject(i).get(idName)));
 
-                                Integer imageId = R.drawable.yolo;
+                                Integer imageId = R.drawable.comte;
 
                                 btn.setImageResource(imageId);
                                 Integer width = findViewById(R.id.activity_order).getWidth();
