@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
@@ -43,13 +46,17 @@ public class OrderActivity extends AppCompatActivity {
 
     private void controller() {
         setContentView(R.layout.activity_order);
+        ImageView image = (ImageView)findViewById(R.id.sandwich);
         if(order.getBread() == null) {
             generateView("bread");
         } else if(order.getMeat() == null) {
+            getResources().getIdentifier("sandwich_2", "drawable", getApplicationContext().getPackageName());
             generateView("meat");
         } else if(order.getCheese() == null) {
+            getResources().getIdentifier("sandwich_3", "drawable", getApplicationContext().getPackageName());
             generateView("cheese");
         } else if(order.getVegetable() == null) {
+            getResources().getIdentifier("sandwich_4", "drawable", getApplicationContext().getPackageName());
             generateView("legume");
         } else {
             Intent intent = new Intent(OrderActivity.this, CardActivity.class);
@@ -74,6 +81,7 @@ public class OrderActivity extends AppCompatActivity {
 
                             for(int i = 0; i<item.length(); i++) {
                                 ImageButton btn = new ImageButton(getBaseContext());
+                                TextView textView = new TextView(getBaseContext());
 
                                 final String name = String.valueOf((String) item.getJSONObject(i).get(type));
                                 final Integer id = Integer.valueOf((String) item.getJSONObject(i).get(type+"_id"));
@@ -83,12 +91,21 @@ public class OrderActivity extends AppCompatActivity {
                                 Integer imageId = getResId(type + id.toString(), Drawable.class);
 
                                 btn.setImageResource(imageId);
+
+                                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                                        RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.FILL_PARENT);
+
+                                textView.setText(name);
+
+                                linearLayoutParent.addView(btn);
+                                linearLayoutParent.addView(textView);
+
                                 Integer width = findViewById(R.id.activity_order).getWidth();
 
                                 Integer btnWidth = width / item.length();
-                                btn.setMinimumWidth(btnWidth);
-                                btn.setMinimumHeight(btnWidth);
-                                linearLayout.addView(btn);
+                                linearLayoutParent.setMinimumWidth(btnWidth-1);
+                                linearLayoutParent.setMinimumHeight(btnWidth-1);
+                                linearLayout.addView(linearLayoutParent);
 
                                 btn.setOnClickListener(new View.OnClickListener()   {
                                     public void onClick(View v)  {
