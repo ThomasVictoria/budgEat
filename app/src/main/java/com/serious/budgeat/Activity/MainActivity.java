@@ -60,11 +60,11 @@ public class MainActivity extends AppCompatActivity {
         Calendar c = Calendar.getInstance();
         Integer hour = c.get(Calendar.HOUR_OF_DAY);
 
-        if (hour > 14) {
-            goToOrderHome();
-        } else {
-            goToReceit();
-        }
+//        if (hour > 14) {
+//            goToOrderHome();
+//        } else {
+//            goToReceit();
+//        }
         Utils.pushOpenScreenEvent(this, screenName);
     }
 
@@ -72,21 +72,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         Utils.pushCloseScreenEvent(this, screenName);
-    }
-
-    void goToOrderHome() {
-        Intent intent = new Intent(MainActivity.this, OrderHomeActivity.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.orderPageButton)
-    void goToOrder() {
-        Intent intent = new Intent(MainActivity.this, OrderActivity.class);
-        startActivity(intent);
-    }
-
-    void goToReceit() {
-        Intent intent = new Intent(MainActivity.this, ReceitActivity.class);
-        startActivity(intent);
     }
 }
