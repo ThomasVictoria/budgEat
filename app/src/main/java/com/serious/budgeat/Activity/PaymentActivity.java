@@ -103,7 +103,9 @@ public class PaymentActivity extends AppCompatActivity {
                         // la reponse de stann
                         try {
                             if(response.get("success").toString()=="") {
+                                sendOrder();
                                 Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
+                                intent.putExtra("SESSION_ORDER", (new Gson()).toJson(order));
                                 startActivity(intent);
                             }
                         } catch (JSONException e) {
@@ -116,6 +118,44 @@ public class PaymentActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    private void sendOrder(){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("stripeToken", token.getId().toString());
+            jsonObject.put("lastname", session_email);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        AndroidNetworking.post("https://budgeat.stan.sh/user/"+  +"/order")
+                .addJSONObjectBody(jsonObject)
+                .setTag("test")
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // la reponse de stann
+                        try {
+                            if(response.get("success").toString()) {
+
+                                Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
+                                intent.putExtra("SESSION_EMAIL", session_email);
+                                intent.putExtra("SESSION_ID", session_id);
+                                intent.putExtra("SESSION_ORDER", (new Gson()).toJson(order));
+                                startActivity(intent);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    @Override
+                    public void onError(ANError error) {
+
+                    }
+                });
     }
 
 }

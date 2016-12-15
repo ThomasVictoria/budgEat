@@ -48,6 +48,7 @@ public class CardActivity extends AppCompatActivity {
     @OnClick(R.id.buttonPayment)
     void gotoPayment(){
         Intent intent = new Intent(CardActivity.this, OrderActivity.class);
+
         intent.putExtra("SESSION_ORDER", (new Gson()).toJson(order));
         startActivity(intent);
     }
