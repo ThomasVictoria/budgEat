@@ -74,8 +74,6 @@ public class ConnexionActivity extends AppCompatActivity {
                             try {
                                 final String id = (String) response.get("id");
                                 final String email = (String) response.get("email");
-                                //String email = String.valueOf(email);
-                                //final String finalEmail = email;
                                 Thread t = new Thread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -89,15 +87,11 @@ public class ConnexionActivity extends AppCompatActivity {
                                 });
                                 t.start();
                                 Intent intent = new Intent(ConnexionActivity.this, MainActivity.class);
-                                intent.putExtra("SESSION_EMAIL", String.valueOf(email));
-                                intent.putExtra("SESSION_ID", (String) response.get("id"));
                                 startActivity(intent);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-
                         }
-
                     }
                     @Override
                     public void onError(ANError error) {

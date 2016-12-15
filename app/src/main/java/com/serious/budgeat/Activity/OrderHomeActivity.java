@@ -1,7 +1,9 @@
 package com.serious.budgeat.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -23,24 +25,19 @@ import butterknife.OnClick;
 
 public class OrderHomeActivity extends AppCompatActivity {
     private static final String screenName = "OrderHome";
-    private String session_email;
-    private String session_id;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        Bundle extras = getIntent().getExtras();
+        String email = preferences.getString("user_email", "");
+        String id = preferences.getString("user_id", "");
 
-        if (extras != null) {
-            session_email = extras.getString("SESSION_EMAIL");
-            session_id = extras.getString("SESSION_ID");
-        }
+        Log.d("email pref", email);
+        Log.d("id pref", id);
 
-        Log.d("zedrftg", session_id);
-
-       // AndroidNetworking.get("https://budgeat.stan.sh/users/"+ String.valueOf(session_id) +"/orders")
+        // AndroidNetworking.get("https://budgeat.stan.sh/users/"+ String.valueOf(session_id) +"/orders")
         AndroidNetworking.get("https://budgeat.stan.sh/users/1/orders")
                 .setTag("test")
                 .setPriority(Priority.MEDIUM)
@@ -63,7 +60,6 @@ public class OrderHomeActivity extends AppCompatActivity {
                     }
                     @Override
                     public void onError(ANError error) {
-                        Log.d("leiqygfqer", error.toString());
                         Toast.makeText(getApplicationContext(), "Erreur reseaux", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -87,8 +83,6 @@ public class OrderHomeActivity extends AppCompatActivity {
     @OnClick(R.id.orderPageButton)
     void goToOrder(){
         Intent intent = new Intent(OrderHomeActivity.this, OrderActivity.class);
-        intent.putExtra("SESSION_EMAIL", session_email);
-        intent.putExtra("SESSION_ID", session_id);
         startActivity(intent);
     }
 }
