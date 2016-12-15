@@ -10,39 +10,68 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.serious.budgeat.Activity.PaymentActivity">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/logo" />
+
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/cardNumber"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:hint="@string/card_number"/>
 
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/peremptionMonth"
-            android:inputType="date"/>
+            android:orientation="horizontal">
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/peremptionMonth"
+                android:inputType="date"
+                android:hint="@string/peremption_date"
+                android:layout_weight="1" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/peremptionYear"/>
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/peremptionYear"
+                android:hint="@string/peremptionMonth"
+                android:layout_weight="1"/>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/cryptogramme"
-            android:inputType="number"/>
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/cryptogramme"
+                android:inputType="number"
+                android:hint="@string/cryptogramme"
+                android:layout_weight="2"/>
+
+        </LinearLayout>
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/sendPayment"
-            android:text="@string/valider"/>
+            android:textColor="#FFFFFF"
+            android:text="@string/valider"
+            android:textSize="15sp"
+            android:layout_width="270dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:background="@drawable/button_shape_connection"
+            />
 
     </LinearLayout>
 

@@ -17,4 +17,9 @@
     <string name="payer">Payement</string>
     <string name="valider">Valider payement</string>
     <string name="fragment_test">coucou</string>
+    <string name="me_connecter">ME CONNECTER</string>
+    <string name="card_number">numéro de carte</string>
+    <string name="peremption_date">DD</string>
+    <string name="peremptionMonth">MM</string>
+    <string name="cryptogramme">cryptogramme</string>
 </resources>
