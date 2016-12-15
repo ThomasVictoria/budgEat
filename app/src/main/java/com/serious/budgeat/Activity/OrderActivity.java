@@ -1,6 +1,7 @@
 package com.serious.budgeat.Activity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -79,8 +80,9 @@ public class OrderActivity extends AppCompatActivity {
                                 final Integer id = Integer.valueOf((String) item.getJSONObject(i).get(type+"_id"));
 
                                 btn.setId(id);
+                                Integer imageId = getResources().getIdentifier(type +"_"+ id.toString(),
+                                        "drawable", getApplicationContext().getPackageName());
 
-                                Integer imageId = getResId(type + id.toString(), Drawable.class);
 
                                 btn.setImageResource(imageId);
                                 Integer width = findViewById(R.id.activity_order).getWidth();
