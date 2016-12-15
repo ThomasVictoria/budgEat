@@ -32,6 +32,7 @@ import butterknife.OnClick;
 public class PaymentActivity extends AppCompatActivity {
 
     private String session_email;
+    private String session_id;
     private Order order;
 
     @Override
@@ -48,6 +49,7 @@ public class PaymentActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         session_email = preferences.getString("user_email", "");
+        session_id = preferences.getString("user_id", "");
     }
 
     @OnClick(R.id.sendPayment)
