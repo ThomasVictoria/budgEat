@@ -30,7 +30,8 @@ public class OrderHomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
@@ -68,8 +69,7 @@ public class OrderHomeActivity extends AppCompatActivity {
                     }
                 });
 
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+
     }
 
     @Override

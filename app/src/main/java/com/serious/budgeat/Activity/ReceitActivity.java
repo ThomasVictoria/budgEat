@@ -1,5 +1,6 @@
 package com.serious.budgeat.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,6 +11,9 @@ import android.view.View;
 import com.serious.budgeat.R;
 import com.serious.budgeat.Utils;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class ReceitActivity extends AppCompatActivity {
 
     private String screenName = "Receit";
@@ -19,7 +23,8 @@ public class ReceitActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_receit);
+        ButterKnife.bind(this);
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
@@ -27,8 +32,17 @@ public class ReceitActivity extends AppCompatActivity {
             session_id = extras.getString("SESSION_ID");
         }
 
-        setContentView(R.layout.activity_receit);
+
     }
+
+    @OnClick(R.id.beginOrder)
+    void goToOrder(){
+
+        Intent intent = new Intent(ReceitActivity.this, OrderActivity.class);
+        startActivity(intent);
+
+    }
+
 
     @Override
     protected void onStart() {
