@@ -24,22 +24,26 @@
             </intent-filter>
         </receiver>
 
-
-        <activity android:name=".Activity.OnBoardingActivity"
-            android:label="@string/app_intro">
-        </activity>
-
+        <activity
+            android:name=".Activity.OnBoardingActivity"
+            android:label="@string/app_intro"></activity>
         <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Activity.LandingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".Activity.InscriptionActivity" />
         <activity android:name=".Activity.ConnexionActivity" />
+        <activity android:name=".Activity.CardActivity" />
+        <activity android:name=".Activity.OrderActivity">
 
-        <activity android:name=".Activity.OrderActivity" />
+        </activity>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <!-- Add preview activity. -->
         <activity
@@ -62,6 +66,7 @@
         <activity android:name=".Activity.OrderHomeActivity"
             android:label="@string/title_activity_receit"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activity.PaymentActivity"></activity>
     </application>
 
 </manifest>

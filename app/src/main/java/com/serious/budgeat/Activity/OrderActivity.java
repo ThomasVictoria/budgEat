@@ -1,26 +1,141 @@
 package com.serious.budgeat.Activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.icu.text.DateFormat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.google.gson.Gson;
+import com.serious.budgeat.Model.Order;
 import com.serious.budgeat.R;
 import com.serious.budgeat.Utils;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Field;
+
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+import static android.R.interpolator.linear;
 
 public class OrderActivity extends AppCompatActivity {
 
     static private final String screenName = "Order";
+    public Order order = new Order();
+    private String session_email;
+    private String session_id;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order);
         ButterKnife.bind(this);
-        /* ICI TOUT PLEIN DE FRAGMENT QUI S'EMBOITES */
 
+        Bundle extras = getIntent().getExtras();
 
+        if (extras != null) {
+            session_email = extras.getString("SESSION_EMAIL");
+            session_id = extras.getString("SESSION_ID");
+        }
+
+        controller();
+    }
+
+    private void controller() {
+        setContentView(R.layout.activity_order);
+        if(order.getBread() == null) {
+            generateView("breads", "breads", "bread_id", "bread");
+        } else if(order.getMeat() == null) {
+            generateView("meats", "viandes", "meat_id", "description");
+        } else if(order.getCheese() == null) {
+            generateView("cheese", "cheese", "cheese_id", "cheese");
+        } else if(order.getVegetable() == null) {
+            generateView("legumes", "legumes", "legume_id", "legume");
+        } else {
+            Intent intent = new Intent(OrderActivity.this, CardActivity.class);
+            intent.putExtra("SESSION_EMAIL", session_email);
+            intent.putExtra("SESSION_ID", session_id);
+            intent.putExtra("SESSION_ORDER", (new Gson()).toJson(order));
+            startActivity(intent);
+        }
+    }
+
+    private void generateView(final String type, final String realName, final String idName, final String nameName){
+        AndroidNetworking.get("http://budgeat.stan.sh/"+type)
+                .setTag("test")
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray item = response.getJSONArray(realName);
+
+                            LinearLayout linearLayout = (LinearLayout)findViewById(R.id.itemsContainer);
+
+                            for(int i = 0; i<item.length(); i++) {
+                                ImageButton btn = new ImageButton(getBaseContext());
+
+                                final String name = String.valueOf((String) item.getJSONObject(i).get(nameName));
+
+                                btn.setId(Integer.valueOf((String) item.getJSONObject(i).get(idName)));
+
+                                Integer imageId = R.drawable.yolo;
+
+                                btn.setImageResource(imageId);
+                                Integer width = findViewById(R.id.activity_order).getWidth();
+
+                                Integer btnWidth = width / item.length();
+                                btn.setMinimumWidth(btnWidth);
+                                btn.setMinimumHeight(btnWidth);
+                                linearLayout.addView(btn);
+
+                                btn.setOnClickListener(new View.OnClickListener()   {
+                                    public void onClick(View v)  {
+                                        Log.d("Button Log", String.valueOf(v.getId()));
+                                        if(type == "breads"){
+                                            order.setBread(v.getId());
+                                            order.setBreadName(name);
+                                        } else if (type == "meats") {
+                                            order.setMeat(v.getId());
+                                            order.setMeatName(name);
+                                        } else if (type == "cheese") {
+                                            order.setCheese(v.getId());
+                                            order.setCheeseName(name);
+                                        } else if (type == "legumes") {
+                                            order.setVegetable(v.getId());
+                                            order.setVegetablesName(name);
+                                        }
+                                        controller();
+                                    }
+                                });
+
+                                Log.d("Button", "genrate "+ String.valueOf(btn.getId()));
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    @Override
+                    public void onError(ANError error) {
+                        Toast.makeText(getApplicationContext(), "Erreur reseaux", Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
     @Override
@@ -33,22 +148,6 @@ public class OrderActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         Utils.pushCloseScreenEvent(this, screenName);
-    }
-
-    // Proto
-    /*@OnClick(R.id.addOrderButton)
-    void addOrder() {
-
-    }
-
-    @OnClick(R.id.orderButton)
-    void validOrder() {
-
-    }*/
-
-    void goToCard(){
-        Intent intent = new Intent(OrderActivity.this, CardActivity.class);
-        startActivity(intent);
     }
 
 }
