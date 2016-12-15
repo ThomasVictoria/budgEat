@@ -10,75 +10,76 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="fitCenter" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:gravity="center_horizontal">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/breadTextView"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/meatTextView"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/cheeseTextView"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/vegetableTextView"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="@string/payer"
-            android:id="@+id/buttonPayment" />
-
-        <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:gravity="center">
-
-        <View
-            android:layout_weight=".45"
-            android:layout_height="1dp"
-            android:background="@android:color/black"
-            android:layout_width="0dp" />
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/breadTextView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/ou"
-            android:layout_weight=".10"
-            android:textAlignment="center" />
+            android:layout_height="wrap_content" />
 
-        <View
-            android:layout_weight=".45"
-            android:layout_height="1dp"
-            android:background="@android:color/black"
-            android:layout_width="0dp" />
+        <TextView
+            android:id="@+id/meatTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
+        <TextView
+            android:id="@+id/cheeseTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/vegetableTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <Button
+            android:id="@+id/buttonPayment"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="@string/reOrder"
-            android:id="@+id/buttonReOrder" />
+            android:text="@string/payer" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight=".45"
+                android:background="@android:color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".10"
+                android:text="@string/ou"
+                android:textAlignment="center" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight=".45"
+                android:background="@android:color/black" />
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonReOrder"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="@string/reOrder" />
 
 
     </LinearLayout>
