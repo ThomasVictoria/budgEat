@@ -1,48 +1,38 @@
 package com.serious.budgeat.Activity;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.tagmanager.Container;
-import com.google.android.gms.tagmanager.ContainerHolder;
-import com.google.android.gms.tagmanager.TagManager;
+import com.serious.budgeat.Fragment.ReductionFragment;
 import com.google.gson.Gson;
 import com.serious.budgeat.Model.Order;
 import com.serious.budgeat.R;
 import com.serious.budgeat.Utils;
-import com.serious.budgeat.Activity.ContainerHolderSingleton;
 
 import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
     private static final String screenName = "Main";
     private Order order;
+    final Integer price = 6;
+    public Integer reducRate;
 
+    public void setReduc(Integer reduc){
+        reducRate = reduc;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_main);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         String email = preferences.getString("user_email", "");
         String id = preferences.getString("user_id", "");
-
-        Log.d("email pref", email);
-        Log.d("id pref", id);
 
         Bundle extras = getIntent().getExtras();
 
@@ -50,22 +40,33 @@ public class MainActivity extends AppCompatActivity {
             order = (new Gson()).fromJson(extras.getString("SESSION_ORDER"), Order.class);
         }
 
+        generateFragment(id, email);
+
         ButterKnife.bind(this);
     }
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Calendar c = Calendar.getInstance();
-        Integer hour = c.get(Calendar.HOUR_OF_DAY);
+    private void generateFragment(String id, String email){
+        getReductionView(id, email);
+    }
 
-//        if (hour > 14) {
-//            goToOrderHome();
-//        } else {
-//            goToReceit();
-//        }
-        Utils.pushOpenScreenEvent(this, screenName);
+    public void getReductionView(String id, String email){
+
+        ReductionFragment reductionFragment = new ReductionFragment();
+        // In case this activity was started with special instructions from an
+        // Intent, pass the Intent's extras to the fragment as arguments
+        reductionFragment.setArguments(getIntent().getExtras());
+
+        Bundle bundle = new Bundle();
+
+        bundle.putString("id", id);
+        bundle.putString("mail", email);
+
+        reductionFragment.setArguments(bundle);
+
+        // Add the fragment to the 'fragment_container' FrameLayout
+        getSupportFragmentManager().beginTransaction().add(R.id.topFragment, reductionFragment).commit();
+
     }
 
     @Override
@@ -73,4 +74,14 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         Utils.pushCloseScreenEvent(this, screenName);
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Calendar c = Calendar.getInstance();
+        Integer hour = c.get(Calendar.HOUR_OF_DAY);
+
+        Utils.pushOpenScreenEvent(this, screenName);
+    }
+
 }
