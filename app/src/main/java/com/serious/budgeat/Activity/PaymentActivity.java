@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -28,6 +29,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class PaymentActivity extends AppCompatActivity {
@@ -42,6 +44,8 @@ public class PaymentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+        ButterKnife.bind(this);
+        findViewById(R.id.loadingPanel).setVisibility(View.GONE);
 
         Bundle extras = getIntent().getExtras();
 
@@ -56,20 +60,28 @@ public class PaymentActivity extends AppCompatActivity {
 
     @OnClick(R.id.sendPayment)
     void sendPayment(){
+        findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
 
         TextView cardNumber = (TextView)findViewById(R.id.cardNumber);
         TextView month = (TextView) findViewById(R.id.peremptionMonth);
         TextView year = (TextView) findViewById(R.id.peremptionYear);
         TextView cryptogramme = (TextView) findViewById(R.id.cryptogramme);
+        Integer valueMonth = Integer.parseInt( month.getText().toString());
+        Integer valueYears = Integer.parseInt( year.getText().toString());
+        
+    }
 
+    private void stripeInit(TextView cardNumber, Integer valueMonth, Integer valueYears, TextView cryptogramme){
+        Card card = new Card(cardNumber.getText().toString(), valueMonth, valueYears, cryptogramme.getText().toString());
 
-        Card card = new Card(cardNumber.getText().toString(), 9, 2017, "657");
+        Log.d("Stripe", "DEBUT");
 
         Stripe stripe = null;
         try {
             stripe = new Stripe("pk_test_Z7Jygw96IdsAouhSoJbMTDsG");
         } catch (AuthenticationException e) {
             e.printStackTrace();
+            Log.d("Stripe", "EXEPTION");
         }
 
         if (!card.validateCard()) {
@@ -82,6 +94,7 @@ public class PaymentActivity extends AppCompatActivity {
                     public void onSuccess(Token token) {
 
                         sendRequest(token);
+                        Log.d("Stripe", "TOKEN OK");
 
                     }
                     public void onError(Exception error) {
@@ -103,6 +116,7 @@ public class PaymentActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        Log.d("STRIPE", "REQUETTE DEBUT");
         AndroidNetworking.post("https://budgeat.stan.sh/la/route/de/payment")
                 .addJSONObjectBody(jsonObject) // posting json
                 .setTag("test")
@@ -112,14 +126,14 @@ public class PaymentActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         // la reponse de stann
+                        Log.d("Stripe", "RESPONSE STAN");
                         try {
                             if(response.get("success").toString()=="") {
                                 sendOrder();
-                                Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
-                                intent.putExtra("SESSION_ORDER", (new Gson()).toJson(order));
-                                startActivity(intent);
+                                Log.d("Stripe", "WIN");
                             }
                         } catch (JSONException e) {
+                            Log.d("Stripe", "STAN BUG");
                             e.printStackTrace();
                         }
                     }
