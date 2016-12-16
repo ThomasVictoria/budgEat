@@ -109,7 +109,7 @@ public class OrderFragment extends Fragment {
         final Double finalPrice = price - reducString;
 
 
-        AndroidNetworking.get("http://budgeat.stan.sh/users/44/orders")
+        AndroidNetworking.get("http://budgeat.stan.sh/users/"+id+"/orders")
                 .setTag("test")
                 .setPriority(Priority.MEDIUM)
                 .build()

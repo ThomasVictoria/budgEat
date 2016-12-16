@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void hasOrdered(final String id, final String email){
 
-        AndroidNetworking.get("http://budgeat.stan.sh/users/1/orders")
+        AndroidNetworking.get("http://budgeat.stan.sh/users/"+id+"/orders")
                 .setTag("test")
                 .setPriority(Priority.MEDIUM)
                 .build()
