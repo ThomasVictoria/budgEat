@@ -98,7 +98,7 @@ public class OrderFragment extends Fragment {
     }
 
     private void getReduction(Double reduc, String id, View view){
-        final TextView textViewCompo = (TextView)view.findViewById(R.id.sandwichComposition);
+        final TextView textViewCompo = (TextView)view.findViewById(R.id.compo);
         final TextView textViewCalcul = (TextView)view.findViewById(R.id.calcul);
         final TextView textViewTotal = (TextView)view.findViewById(R.id.total);
         final Button couponButton = (Button)view.findViewById(R.id.couponButton);
