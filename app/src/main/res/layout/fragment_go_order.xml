@@ -4,9 +4,29 @@
     android:layout_height="match_parent"
     tools:context="com.serious.budgeat.Fragment.GoOrderFragment">
 
-    <Button
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/goToOrder"/>
+        android:background="@color/colorPrimaryText"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="25dp"
+        android:id="@+id/goToOrder"
+        >
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/je_commande"
+            />
+        <TextView
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/je_commande"
+            android:textSize="15sp"
+            android:textColor="#fff"/>
+    </LinearLayout>
 
 </FrameLayout>
