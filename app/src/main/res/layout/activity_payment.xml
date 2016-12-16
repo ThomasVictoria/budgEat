@@ -33,7 +33,9 @@
             android:id="@+id/cardNumber"
             android:inputType="number"
             android:hint="@string/card_number"
-            android:maxLength="16" />
+            android:maxLength="16"
+            android:drawableStart="@drawable/card_icon"
+            android:drawablePadding="10dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,18 +47,22 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/peremptionMonth"
                 android:inputType="number"
-                android:hint="@string/peremption_date"
+                android:hint="@string/peremptionMonth"
                 android:layout_weight="1"
-                android:maxLength="2"/>
+                android:maxLength="2"
+                android:drawableStart="@drawable/calendar_icon"
+                android:drawablePadding="10dp"/>
 
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:id="@+id/peremptionYear"
-                android:hint="@string/peremptionMonth"
+                android:hint="@string/peremptionYear"
                 android:layout_weight="1"
-                android:maxLength="4"/>
+                android:maxLength="4"
+                android:drawableStart="@drawable/calendar_icon"
+                android:drawablePadding="10dp"/>
 
             <EditText
                 android:layout_width="0dp"
@@ -65,7 +71,9 @@
                 android:inputType="number"
                 android:hint="@string/cryptogramme"
                 android:layout_weight="2"
-                android:maxLength="3"/>
+                android:maxLength="3"
+                android:drawableStart="@drawable/pw_icon"
+                android:drawablePadding="10dp"/>
 
         </LinearLayout>
 
