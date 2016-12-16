@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.serious.budgeat.Fragment.GoOrderFragment;
 import com.serious.budgeat.Fragment.NothingFragmentBottom;
 import com.serious.budgeat.Fragment.NothingFragmentTop;
 import com.serious.budgeat.Fragment.OrderFragment;
@@ -45,11 +46,21 @@ public class MainActivity extends AppCompatActivity {
     private void generateFragment(String id, String email){
 //        getReductionView(id, email);
 //        getNothingFragment();
-        getOrderFragment(email);
+//        getOrderFragment(email);
+        goToOrderFragment();
+    }
+
+    public void goToOrderFragment(){
+        GoOrderFragment goOrderFragment = new GoOrderFragment();
+        // In case this activity was started with special instructions from an
+        // Intent, pass the Intent's extras to the fragment as arguments
+        goOrderFragment.setArguments(getIntent().getExtras());
+
+        getSupportFragmentManager().beginTransaction().add(R.id.bottomFragment, goOrderFragment).commit();
     }
 
     public void getOrderFragment(String email){
-        Log.d("EXECUTE", "qreilubqouyregbqle");
+
         OrderFragment orderFragment = new OrderFragment();
         // In case this activity was started with special instructions from an
         // Intent, pass the Intent's extras to the fragment as arguments
