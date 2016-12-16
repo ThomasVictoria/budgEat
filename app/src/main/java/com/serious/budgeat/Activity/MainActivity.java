@@ -46,8 +46,6 @@ public class MainActivity extends AppCompatActivity {
         String email = preferences.getString("user_email", "");
         String id = preferences.getString("user_id", "");
 
-        Bundle extras = getIntent().getExtras();
-
         hasOrdered(id, email);
 
         ButterKnife.bind(this);
@@ -77,11 +75,6 @@ public class MainActivity extends AppCompatActivity {
                 goToOrderFragment();
             }
         }
-//   getReductionView(id, email);
-//    getNothingFragment();
-//    getOrderFragment(email);
-//      goToOrderFragment();
-
     }
 
     public void hasOrdered(final String id, final String email){

@@ -1,5 +1,6 @@
 package com.serious.budgeat.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -13,8 +14,7 @@ public class CouponActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receit);
 
-        Bundle extras = getIntent().getExtras();
-        String token = "162";
+        String token = getIntent().getStringExtra("SESSION_TOKEN");
 
         TextView textViewToken = (TextView)findViewById(R.id.token);
         textViewToken.setText(token);

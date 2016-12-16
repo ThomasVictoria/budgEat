@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -47,14 +48,20 @@ public class PaymentActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         findViewById(R.id.loadingPanel).setVisibility(View.GONE);
 
-        Bundle extras = getIntent().getExtras();
+        String price = getIntent().getExtras().getString("SESSION_PRICE");
+//        Log.d("price", price);
+        TextView textViewPrice = (TextView)findViewById(R.id.orderPrice);
+
+        textViewPrice.setText(price);
+
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         id = preferences.getString("user_id", "");
         session_email = preferences.getString("user_email", "");
 
-        if (extras != null) {
-            order = (new Gson()).fromJson(extras.getString("SESSION_ORDER"), Order.class);
+
+        if (getIntent().getExtras() != null) {
+            order = (new Gson()).fromJson(getIntent().getExtras().getString("SESSION_ORDER"), Order.class);
         }
     }
 
@@ -68,7 +75,35 @@ public class PaymentActivity extends AppCompatActivity {
         TextView cryptogramme = (TextView) findViewById(R.id.cryptogramme);
         Integer valueMonth = Integer.parseInt( month.getText().toString());
         Integer valueYears = Integer.parseInt( year.getText().toString());
-        
+
+        if(cardNumber.length() == 16) {
+
+            if(valueMonth <= 12){
+
+                if(valueYears >= 2016){
+
+                    if(cryptogramme.length() == 3){
+                        stripeInit(cardNumber, valueMonth, valueYears, cryptogramme);
+                    } else {
+                        findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+                        Toast.makeText(getApplicationContext(), "Votre cryptogramme doit faire 3 chiffres", Toast.LENGTH_LONG).show();
+                    }
+
+                } else {
+                    findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+                    Toast.makeText(getApplicationContext(), "Année doit etre supérieur à 2015", Toast.LENGTH_LONG).show();
+                }
+
+            } else {
+                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+                Toast.makeText(getApplicationContext(), "Mois invalide", Toast.LENGTH_LONG).show();
+            }
+
+        } else{
+            findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+            Toast.makeText(getApplicationContext(), "Votre numéro de carte doit faire 16 chiffres", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     private void stripeInit(TextView cardNumber, Integer valueMonth, Integer valueYears, TextView cryptogramme){
@@ -108,47 +143,14 @@ public class PaymentActivity extends AppCompatActivity {
 
     private void sendRequest(Token token){
 
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("stripeToken", token.getId().toString());
-            jsonObject.put("lastname", session_email);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        Log.d("STRIPE", "REQUETTE DEBUT");
-        AndroidNetworking.post("https://budgeat.stan.sh/la/route/de/payment")
-                .addJSONObjectBody(jsonObject) // posting json
-                .setTag("test")
-                .setPriority(Priority.MEDIUM)
-                .build()
-                .getAsJSONObject(new JSONObjectRequestListener() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        // la reponse de stann
-                        Log.d("Stripe", "RESPONSE STAN");
-                        try {
-                            if(response.get("success").toString()=="") {
-                                sendOrder();
-                                Log.d("Stripe", "WIN");
-                            }
-                        } catch (JSONException e) {
-                            Log.d("Stripe", "STAN BUG");
-                            e.printStackTrace();
-                        }
-                    }
-                    @Override
-                    public void onError(ANError error) {
-
-                    }
-                });
+        sendOrder();
 
     }
 
     private void sendOrder(){
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("has_charcut", order.getMeat().toString());
+            jsonObject.put("has_meat", order.getMeat().toString());
             jsonObject.put("has_legume", order.getVegetable().toString());
             jsonObject.put("bread_type", order.getBread().toString());
             jsonObject.put("has_cheese", order.getCheese().toString());
@@ -156,31 +158,40 @@ public class PaymentActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        AndroidNetworking.post("https://budgeat.stan.sh/user/"+ id +"/order")
-                .addJSONObjectBody(jsonObject)
-                .setTag("test")
-                .setPriority(Priority.MEDIUM)
-                .build()
-                .getAsJSONObject(new JSONObjectRequestListener() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        // la reponse de stann
-                        try {
-                            if(response.get("success").toString() =="") {
-
+//        AndroidNetworking.post("https://budgeat.stan.sh/user/"+ id +"/order")
+//                .addJSONObjectBody(jsonObject)
+//                .setTag("test")
+//                .setPriority(Priority.MEDIUM)
+//                .build()
+//                .getAsJSONArray(new JSONArrayRequestListener() {
+//                    @Override
+//                    public void onResponse(JSONArray response) {
+//                        Log.d("TEST", "OK");
+//                        try {
+//                            if(response.get("success").toString() =="") {
+//
+                                Order order = new Order();
+                                order.setBread(1);
+                                order.setBreadName("pain");
+                                order.setMeat(1);
+                                order.setMeatName("steak");
+                                order.setVegetable(1);
+                                order.setVegetablesName("salade");
+                                order.setCheese(1);
+                                order.setCheeseName("cantal");
                                 Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
-                                intent.putExtra("SESSION_ORDER", (new Gson()).toJson(order));
                                 startActivity(intent);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    @Override
-                    public void onError(ANError error) {
-
-                    }
-                });
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                    @Override
+//                    public void onError(ANError error) {
+//
+//                        Log.d("TEST", error.toString());
+//                    }
+//                });
     }
 
 }
