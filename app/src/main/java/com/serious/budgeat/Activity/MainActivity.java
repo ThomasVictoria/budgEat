@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String screenName = "Main";
     private Order order;
     final Integer price = 6;
-    final Integer TurnOver = 1;
+    final Integer TurnOver = 14;
 
     public Integer getPrice() { return price; }
 
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void hasOrdered(final String id, final String email){
         Log.d("IDDDDDDD", id);
-        AndroidNetworking.get("http://budgeat.stan.sh/users/"+id+"/orders")
+        AndroidNetworking.get("http://budgeat.stan.sh/users/1/orders")
                 .setTag("test")
                 .setPriority(Priority.MEDIUM)
                 .build()
