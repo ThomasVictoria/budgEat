@@ -48,13 +48,6 @@ public class PaymentActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         findViewById(R.id.loadingPanel).setVisibility(View.GONE);
 
-        String price = getIntent().getExtras().getString("SESSION_PRICE");
-//        Log.d("price", price);
-        TextView textViewPrice = (TextView)findViewById(R.id.orderPrice);
-
-        textViewPrice.setText(price);
-
-
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         id = preferences.getString("user_id", "");
         session_email = preferences.getString("user_email", "");
@@ -109,18 +102,11 @@ public class PaymentActivity extends AppCompatActivity {
     private void stripeInit(TextView cardNumber, Integer valueMonth, Integer valueYears, TextView cryptogramme){
         Card card = new Card(cardNumber.getText().toString(), valueMonth, valueYears, cryptogramme.getText().toString());
 
-        Log.d("Stripe", "DEBUT");
-
         Stripe stripe = null;
         try {
             stripe = new Stripe("pk_test_Z7Jygw96IdsAouhSoJbMTDsG");
         } catch (AuthenticationException e) {
             e.printStackTrace();
-            Log.d("Stripe", "EXEPTION");
-        }
-
-        if (!card.validateCard()) {
-            Log.d("", "CARD PAS OK");
         }
 
         stripe.createToken(
@@ -129,13 +115,11 @@ public class PaymentActivity extends AppCompatActivity {
                     public void onSuccess(Token token) {
 
                         sendRequest(token);
-                        Log.d("Stripe", "TOKEN OK");
 
                     }
                     public void onError(Exception error) {
                         // Show localized error message
-                        Log.d("", "STRIPE PAS OK");
-                        Log.e("MYAPP", "exception", error);
+
                     }
                 }
         );
@@ -166,7 +150,7 @@ public class PaymentActivity extends AppCompatActivity {
 //                .getAsJSONArray(new JSONArrayRequestListener() {
 //                    @Override
 //                    public void onResponse(JSONArray response) {
-//                        Log.d("TEST", "OK");
+
 //                        try {
 //                            if(response.get("success").toString() =="") {
 //
@@ -189,7 +173,7 @@ public class PaymentActivity extends AppCompatActivity {
 //                    @Override
 //                    public void onError(ANError error) {
 //
-//                        Log.d("TEST", error.toString());
+
 //                    }
 //                });
     }

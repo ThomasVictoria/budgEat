@@ -197,7 +197,6 @@ public class InscriptionActivity extends AppCompatActivity {
 
                             @Override
                             public void onError(ANError error) {
-                                Log.d("jkyqgou yez", error.toString());
                                 Toast.makeText(getApplicationContext(), "Erreur Reseaux", Toast.LENGTH_LONG).show();
                             }
                         });

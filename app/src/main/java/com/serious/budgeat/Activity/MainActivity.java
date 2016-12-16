@@ -58,19 +58,20 @@ public class MainActivity extends AppCompatActivity {
 
         if (hour < TurnOver){
             if (ordered) {
+                getReductionView(id, email);
                 getOrderFragment(email);
-                Log.d("TEST", "COMANDE MATIN");
+
             } else {
-                Log.d("TEST", "QUE DALLE");
+
                 getNothingFragment();
             }
         } else {
             if (ordered) {
-                Log.d("TEST", "COMANDE APRES MIDI");
+
                 getReductionView(id, email);
                 getOrderFragment(email);
             } else {
-                Log.d("TEST", "VA COMMANDER");
+
                 getReductionView(id, email);
                 goToOrderFragment();
             }
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void hasOrdered(final String id, final String email){
-        Log.d("IDDDDDDD", id);
+
         AndroidNetworking.get("http://budgeat.stan.sh/users/1/orders")
                 .setTag("test")
                 .setPriority(Priority.MEDIUM)
@@ -89,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
 
                         try {
                             String test = String.valueOf(response.get("success"));
-                            Log.d("ORDER","VIDE");
                             generateFragment(id, email, false);
                         } catch (JSONException e) {
                             for(Integer i = 0; i < response.length();i++){
@@ -119,18 +119,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToOrderFragment(){
         GoOrderFragment goOrderFragment = new GoOrderFragment();
-        // In case this activity was started with special instructions from an
-        // Intent, pass the Intent's extras to the fragment as arguments
         goOrderFragment.setArguments(getIntent().getExtras());
 
-        getSupportFragmentManager().beginTransaction().add(R.id.bottomFragment, goOrderFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.bottomFragment, goOrderFragment).commit();
     }
 
     public void getOrderFragment(String email){
 
         OrderFragment orderFragment = new OrderFragment();
-        // In case this activity was started with special instructions from an
-        // Intent, pass the Intent's extras to the fragment as arguments
         orderFragment.setArguments(getIntent().getExtras());
 
         Bundle bundle = new Bundle();
@@ -138,28 +134,25 @@ public class MainActivity extends AppCompatActivity {
         bundle.putString("email", email);
 
         orderFragment.setArguments(bundle);
-        // Add the fragment to the 'fragment_container' FrameLayout
-        getSupportFragmentManager().beginTransaction().add(R.id.bottomFragment, orderFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.bottomFragment, orderFragment).commit();
     }
 
     public void getNothingFragment(){
 
         NothingFragmentTop nothingFragmentTop = new NothingFragmentTop();
         NothingFragmentBottom nothingFragmentBottom = new NothingFragmentBottom();
-        // In case this activity was started with special instructions from an
-        // Intent, pass the Intent's extras to the fragment as arguments
+
         nothingFragmentTop.setArguments(getIntent().getExtras());
         nothingFragmentBottom.setArguments(getIntent().getExtras());
-        // Add the fragment to the 'fragment_container' FrameLayout
-        getSupportFragmentManager().beginTransaction().add(R.id.topFragment, nothingFragmentTop).commit();
-        getSupportFragmentManager().beginTransaction().add(R.id.bottomFragment, nothingFragmentBottom).commit();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.topFragment, nothingFragmentTop).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.bottomFragment, nothingFragmentBottom).commit();
     }
 
     public void getReductionView(String id, String email){
 
         ReductionFragment reductionFragment = new ReductionFragment();
-        // In case this activity was started with special instructions from an
-        // Intent, pass the Intent's extras to the fragment as arguments
+
         reductionFragment.setArguments(getIntent().getExtras());
 
         Bundle bundle = new Bundle();
@@ -168,9 +161,7 @@ public class MainActivity extends AppCompatActivity {
         bundle.putString("mail", email);
 
         reductionFragment.setArguments(bundle);
-
-        // Add the fragment to the 'fragment_container' FrameLayout
-        getSupportFragmentManager().beginTransaction().add(R.id.topFragment, reductionFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.topFragment, reductionFragment).commit();
 
     }
 

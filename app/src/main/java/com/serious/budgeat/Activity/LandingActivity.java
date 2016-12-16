@@ -48,7 +48,6 @@ public class LandingActivity extends AppCompatActivity {
                 Container container = containerHolder.getContainer();
 
                 if (!containerHolder.getStatus().isSuccess()) {
-                    Log.e("Error", "failure loading container");
                     displayErrorToUser(R.string.load_error);
                 }
             }

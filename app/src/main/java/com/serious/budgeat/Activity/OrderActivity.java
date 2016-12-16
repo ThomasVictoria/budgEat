@@ -110,7 +110,7 @@ public class OrderActivity extends AppCompatActivity {
 
                                 btn.setOnClickListener(new View.OnClickListener()   {
                                     public void onClick(View v)  {
-                                        Log.d("Button Log", String.valueOf(v.getId()));
+
                                         if(type == "bread"){
                                             order.setBread(v.getId());
                                             order.setBreadName(name);
@@ -131,7 +131,6 @@ public class OrderActivity extends AppCompatActivity {
                                     }
                                 });
 
-                                Log.d("Button", "genrate "+ order.getBread());
                             }
 
                         } catch (JSONException e) {
@@ -147,7 +146,6 @@ public class OrderActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d("qergser", "wsrqer");
         order = new Order();
         Utils.pushCloseScreenEvent(this, screenName);
     }

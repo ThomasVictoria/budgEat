@@ -98,7 +98,7 @@ public class OrderFragment extends Fragment {
     }
 
     private void getReduction(Double reduc, String id, View view){
-        final TextView textViewCompo = (TextView)view.findViewById(R.id.sandwichComposition);
+        final TextView textViewCompo = (TextView)view.findViewById(R.id.compo);
         final TextView textViewCalcul = (TextView)view.findViewById(R.id.calcul);
         final TextView textViewTotal = (TextView)view.findViewById(R.id.total);
         final Button couponButton = (Button)view.findViewById(R.id.couponButton);
@@ -109,7 +109,7 @@ public class OrderFragment extends Fragment {
         final Double finalPrice = price - reducString;
 
 
-        AndroidNetworking.get("http://budgeat.stan.sh/users/1/orders")
+        AndroidNetworking.get("http://budgeat.stan.sh/users/44/orders")
                 .setTag("test")
                 .setPriority(Priority.MEDIUM)
                 .build()
