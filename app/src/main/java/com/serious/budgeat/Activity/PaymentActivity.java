@@ -68,7 +68,7 @@ public class PaymentActivity extends AppCompatActivity {
         TextView cryptogramme = (TextView) findViewById(R.id.cryptogramme);
         Integer valueMonth = Integer.parseInt( month.getText().toString());
         Integer valueYears = Integer.parseInt( year.getText().toString());
-        
+
     }
 
     private void stripeInit(TextView cardNumber, Integer valueMonth, Integer valueYears, TextView cryptogramme){
