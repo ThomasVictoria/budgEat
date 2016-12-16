@@ -32,7 +32,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/cardNumber"
             android:inputType="number"
-            android:hint="@string/card_number"/>
+            android:hint="@string/card_number"
+            android:maxLength="16" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,16 +44,19 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/peremptionMonth"
-                android:inputType="date"
+                android:inputType="number"
                 android:hint="@string/peremption_date"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:maxLength="2"/>
 
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:id="@+id/peremptionYear"
                 android:hint="@string/peremptionMonth"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:maxLength="4"/>
 
             <EditText
                 android:layout_width="0dp"
@@ -60,7 +64,8 @@
                 android:id="@+id/cryptogramme"
                 android:inputType="number"
                 android:hint="@string/cryptogramme"
-                android:layout_weight="2"/>
+                android:layout_weight="2"
+                android:maxLength="3"/>
 
         </LinearLayout>
 
@@ -78,5 +83,17 @@
 
     </LinearLayout>
 
+    <RelativeLayout
+        android:id="@+id/loadingPanel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <ProgressBar
+            android:id="@+id/ProgressBar01"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+        android:indeterminateTint="@color/colorLoader" />
+    </RelativeLayout>
 
 </RelativeLayout>

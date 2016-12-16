@@ -56,8 +56,9 @@ public class OrderFragment extends Fragment {
                         try {
 
                             String id = response.get("id").toString();
+                            String ecole = response.get("ecole_id").toString();
 
-                            getSchoolOrders(id, view);
+                            getSchoolOrders(id, ecole, view);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -72,9 +73,9 @@ public class OrderFragment extends Fragment {
         return view;
     }
 
-    private void getSchoolOrders(String id, final View view){
+    private void getSchoolOrders(final String id, String ecole, final View view){
 
-        AndroidNetworking.get("https://budgeat.stan.sh/schools/"+id+"/count")
+        AndroidNetworking.get("https://budgeat.stan.sh/schools/"+ecole+"/count")
                 .setTag("test")
                 .setPriority(Priority.MEDIUM)
                 .build()
@@ -83,7 +84,7 @@ public class OrderFragment extends Fragment {
                     public void onResponse(JSONObject response) {
                         try {
                             Double orders = Double.valueOf(response.get("achats").toString());
-                            getReduction(orders, view);
+                            getReduction(orders, id, view);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -96,7 +97,7 @@ public class OrderFragment extends Fragment {
                 });
     }
 
-    private void getReduction(Double reduc, View view){
+    private void getReduction(Double reduc, String id, View view){
         final TextView textViewCompo = (TextView)view.findViewById(R.id.sandwichComposition);
         final TextView textViewCalcul = (TextView)view.findViewById(R.id.calcul);
         final TextView textViewTotal = (TextView)view.findViewById(R.id.total);
@@ -108,7 +109,7 @@ public class OrderFragment extends Fragment {
         final Double finalPrice = price - reducString;
 
 
-        AndroidNetworking.get("http://budgeat.stan.sh/users/1/orders")
+        AndroidNetworking.get("http://budgeat.stan.sh/users/"+id+"/orders")
                 .setTag("test")
                 .setPriority(Priority.MEDIUM)
                 .build()
