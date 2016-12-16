@@ -26,4 +26,8 @@
     <string name="come_back">Les commandes ne sont plus disponible, revenez à 14h.</string>
     <string name="reduction">23%</string>
     <string name="currentPrice">soit : 5€20</string>
+    <string name="commandNumber">162</string>
+    <string name="textCommandNumber">numéro de la commande</string>
+    <string name="h12">12h</string>
+    <string name="retirementHour">Heure de retrait</string>
 </resources>
