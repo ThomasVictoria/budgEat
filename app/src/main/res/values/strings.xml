@@ -30,4 +30,5 @@
     <string name="textCommandNumber">numéro de la commande</string>
     <string name="h12">12h</string>
     <string name="retirementHour">Heure de retrait</string>
+    <string name="je_commande">je commande</string>
 </resources>
