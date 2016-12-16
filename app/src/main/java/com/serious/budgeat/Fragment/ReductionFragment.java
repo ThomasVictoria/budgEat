@@ -78,8 +78,6 @@ public class ReductionFragment extends Fragment {
                             title.setText("-"+orders.toString()+"%");
                             subtitle.setText("Soit "+ orders.toString()+" commandes");
 
-                            ((MainActivity)getActivity()).setReduc(orders);
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
