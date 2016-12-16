@@ -27,7 +27,7 @@
                 android:src="@drawable/sandwich_4" />
 
             <TextView
-                android:id="@+id/sandwichComposition"
+                android:id="@+id/compo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -67,7 +67,9 @@
             <TextView
                 android:id="@+id/total"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textAlignment="textEnd" />
+
 
         </LinearLayout>
 
