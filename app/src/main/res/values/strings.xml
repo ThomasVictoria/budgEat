@@ -24,4 +24,7 @@
     <string name="cryptogramme">cryptogramme</string>
     <string name="heh">¯\\_(ツ)_/¯</string>
     <string name="come_back">Les commandes ne sont plus disponible, revenez à 14h.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
