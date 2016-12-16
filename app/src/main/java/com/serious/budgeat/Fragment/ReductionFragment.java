@@ -76,7 +76,8 @@ public class ReductionFragment extends Fragment {
                             TextView subtitle = (TextView)view.findViewById(R.id.reductionSubtitle);
 
                             title.setText("-"+orders.toString()+"%");
-                            subtitle.setText("Soit "+ orders.toString()+" commandes");
+                            String commandsText = "Soit "+ orders.toString() +" commandes";
+                            subtitle.setText(commandsText);
 
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -32,11 +32,7 @@ public class LandingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String id = preferences.getString("user_id", "");
-        if (id.length() != 0) {
-            goToMain();
-        }
+
 
         TagManager tagManager = TagManager.getInstance(this);
 
@@ -89,6 +85,11 @@ public class LandingActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String id = preferences.getString("user_id", "");
+        if (id.length() != 0) {
+            goToMain();
+        }
         Utils.pushOpenScreenEvent(this, screenName);
     }
 
