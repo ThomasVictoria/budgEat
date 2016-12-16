@@ -32,7 +32,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/email"
             android:inputType="textEmailAddress"
-            android:hint="@string/email"/>
+            android:hint="@string/email"
+            android:drawableStart="@drawable/mail_icon"
+            android:drawablePadding="2dp"/>/>
 
 
         <EditText

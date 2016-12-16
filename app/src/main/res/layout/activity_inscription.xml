@@ -32,7 +32,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:drawableStart="@drawable/mail_icon"
+            android:drawablePadding="2dp"/>
         <!-- android:drawableLeft="@drawable/email" -->
 
 
@@ -50,7 +52,9 @@
             android:layout_height="wrap_content"
             android:hint="@string/password"
             android:inputType="textPassword"
-            android:layout_marginBottom="15dp"/>
+            android:layout_marginBottom="15dp"
+            android:drawableStart="@drawable/pw_icon"
+            android:drawablePadding="2dp"/>/>
 
         <Button
             android:id="@+id/vaporisation"

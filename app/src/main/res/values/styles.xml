@@ -5,8 +5,8 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimaryText</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColorPrimary">@color/colorPrimaryText</item>
+        <item name="colorAccent">@color/colorText</item>
+        <item name="android:textColorPrimary">@color/colorText</item>
         <item name="android:textColor">@color/colorText</item>
 
         <!--<item name="colorLoader">@color/colorLoader</item>-->
