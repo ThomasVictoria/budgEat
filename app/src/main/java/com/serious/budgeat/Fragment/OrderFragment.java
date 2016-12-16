@@ -20,6 +20,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.google.gson.Gson;
+import com.serious.budgeat.Activity.CouponActivity;
 import com.serious.budgeat.Activity.InscriptionActivity;
 import com.serious.budgeat.Activity.MainActivity;
 import com.serious.budgeat.R;
@@ -97,7 +98,7 @@ public class OrderFragment extends Fragment {
     @OnClick(R.id.couponButton)
     void goToCoupon(){
         Intent intent = new Intent(getActivity(), CouponActivity.class);
-        intent.putExtra("SESSION_TOKEN", coupon);
+        intent.putExtra("SESSION_TOKEN", coupon.toString());
         startActivity(intent);
     }
 
