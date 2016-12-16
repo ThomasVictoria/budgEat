@@ -32,17 +32,9 @@ public class CardActivity extends AppCompatActivity {
             order = (new Gson()).fromJson(extras.getString("SESSION_ORDER"), Order.class);
         }
 
-        TextView bread = (TextView)findViewById(R.id.breadTextView);
-        bread.setText(order.getBreadName());
-
-        TextView meat = (TextView)findViewById(R.id.meatTextView);
-        meat.setText(order.getMeatName());
-
-        TextView vegetable = (TextView)findViewById(R.id.vegetableTextView);
-        vegetable.setText(order.getVegetablesName());
-
-        TextView cheese = (TextView)findViewById(R.id.cheeseTextView);
-        cheese.setText(order.getCheeseName());
+        TextView bread = (TextView)findViewById(R.id.sandwichComposition);
+        bread.setText(order.getBreadName() +" + "+ order.getMeatName() +" + "+ order.getVegetablesName()
+                +" + "+ order.getCheeseName());
     }
 
     @OnClick(R.id.buttonPayment)
