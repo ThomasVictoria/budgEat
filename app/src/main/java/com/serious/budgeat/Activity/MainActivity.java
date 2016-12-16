@@ -60,14 +60,18 @@ public class MainActivity extends AppCompatActivity {
             if(ordered){
                 getReductionView(id, email);
                 getOrderFragment(email);
+                Log.d("TEST", "COMANDE MATIN");
             } else {
+                Log.d("TEST", "QUE DALLE");
                 getNothingFragment();
             }
         } else {
             if(ordered){
+                Log.d("TEST", "COMANDE APRES MIDI");
                 getReductionView(id, email);
                 getOrderFragment(email);
             } else {
+                Log.d("TEST", "VA COMMANDER");
                 getReductionView(id, email);
                 goToOrderFragment();
             }
@@ -80,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void hasOrdered(final String id, final String email){
-        AndroidNetworking.get("http://budgeat.stan.sh/users/1/orders")
+        AndroidNetworking.get("http://budgeat.stan.sh/users/44/orders")
                 .setTag("test")
                 .setPriority(Priority.MEDIUM)
                 .build()
@@ -88,21 +92,27 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
 
-                        if
+                        try {
+                            String test = String.valueOf(response.get("success"));
+                            if(test == null){
+                                Log.d("ORDER","VIDE");
+                                generateFragment(id, email, false);
+                            }
+                        } catch (JSONException e) {
+                            for(Integer i = 0; i < response.length();i++){
 
-                        for(Integer i = 0; i < response.length();i++){
+                                try {
+                                    Integer payed = Integer.valueOf(response.getJSONArray("orders").getJSONObject(i).get("is_payed").toString());
+                                    if(payed == 0){
+                                        generateFragment(id, email, true);
+                                    } else {
+                                        generateFragment(id, email, false);
+                                    }
 
-                            try {
-                                Integer payed = Integer.valueOf(response.getJSONArray("orders").getJSONObject(i).get("is_payed").toString());
-                                if(payed == 0){
-                                    generateFragment(id, email, true);
-                                } else {
-                                    generateFragment(id, email, false);
+                                } catch (JSONException ex) {
+                                    ex.printStackTrace();
+
                                 }
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-
                             }
                         }
                     }
