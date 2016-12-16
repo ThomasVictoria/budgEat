@@ -38,10 +38,10 @@ public class OrderActivity extends AppCompatActivity {
     static private final String screenName = "Order";
     public Order order = new Order();
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onStart() {
+        super.onStart();
+        Utils.pushOpenScreenEvent(this, screenName);
         ButterKnife.bind(this);
 
         controller();
@@ -61,11 +61,6 @@ public class OrderActivity extends AppCompatActivity {
         } else if(order.getVegetable() == null) {
             image.setImageResource(getResources().getIdentifier("sandwich_4", "drawable", getApplicationContext().getPackageName()));
             generateView("legume");
-        } else {
-            Intent intent = new Intent(OrderActivity.this, CardActivity.class);
-
-            intent.putExtra("SESSION_ORDER", (new Gson()).toJson(order));
-            startActivity(intent);
         }
     }
 
@@ -128,6 +123,9 @@ public class OrderActivity extends AppCompatActivity {
                                         } else if (type == "legume") {
                                             order.setVegetable(v.getId());
                                             order.setVegetablesName(name);
+                                            Intent intent = new Intent(OrderActivity.this, CardActivity.class);
+                                            intent.putExtra("SESSION_ORDER", (new Gson()).toJson(order));
+                                            startActivity(intent);
                                         }
                                         controller();
                                     }
@@ -146,16 +144,11 @@ public class OrderActivity extends AppCompatActivity {
                     }
                 });
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Utils.pushOpenScreenEvent(this, screenName);
-    }
-
     @Override
     protected void onStop() {
         super.onStop();
+        Log.d("qergser", "wsrqer");
+        order = new Order();
         Utils.pushCloseScreenEvent(this, screenName);
     }
 
