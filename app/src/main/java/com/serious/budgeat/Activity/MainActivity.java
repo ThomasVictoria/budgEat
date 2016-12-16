@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.serious.budgeat.Fragment.NothingFragmentBottom;
 import com.serious.budgeat.Fragment.NothingFragmentTop;
@@ -21,13 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String screenName = "Main";
     private Order order;
     final Integer price = 6;
-    public Integer reducRate;
 
     public Integer getPrice() { return price; }
-    public void setReduc(Integer reduc){
-        reducRate = reduc;
-    }
-    public Integer getReduc(){ return reducRate; }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +45,11 @@ public class MainActivity extends AppCompatActivity {
     private void generateFragment(String id, String email){
 //        getReductionView(id, email);
 //        getNothingFragment();
-        getOrderFragment(id);
-
+        getOrderFragment(email);
     }
 
-    public void getOrderFragment(String id){
+    public void getOrderFragment(String email){
+        Log.d("EXECUTE", "qreilubqouyregbqle");
         OrderFragment orderFragment = new OrderFragment();
         // In case this activity was started with special instructions from an
         // Intent, pass the Intent's extras to the fragment as arguments
@@ -61,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle bundle = new Bundle();
 
-        bundle.putString("id", id);
+        bundle.putString("email", email);
 
         orderFragment.setArguments(bundle);
         // Add the fragment to the 'fragment_container' FrameLayout

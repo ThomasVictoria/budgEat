@@ -27,17 +27,19 @@
         <activity
             android:name=".Activity.OnBoardingActivity"
             android:label="@string/app_intro" />
-        <activity android:name=".Activity.MainActivity"></activity>
-        <activity android:name=".Activity.LandingActivity"></activity>
-        <activity android:name=".Activity.InscriptionActivity" />
-        <activity android:name=".Activity.ConnexionActivity" />
-        <activity android:name=".Activity.CardActivity" />
-        <activity android:name=".Activity.OrderActivity">
+        <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".Activity.LandingActivity"></activity>
+        <activity android:name=".Activity.InscriptionActivity" />
+        <activity android:name=".Activity.ConnexionActivity" />
+        <activity android:name=".Activity.CardActivity" />
+        <activity android:name=".Activity.OrderActivity">
+
         </activity>
 
         <meta-data
