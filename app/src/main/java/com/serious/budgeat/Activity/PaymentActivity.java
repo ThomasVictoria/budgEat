@@ -136,6 +136,7 @@ public class PaymentActivity extends AppCompatActivity {
 
     private void sendOrder(){
         JSONObject jsonObject = new JSONObject();
+
         try {
             jsonObject.put("has_charcut", order.getMeat().toString());
             jsonObject.put("has_legume", order.getVegetable().toString());
@@ -153,7 +154,7 @@ public class PaymentActivity extends AppCompatActivity {
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("piuhres", response.toString());
+
                         try {
                             if(response.get("success").toString() == "true") {
                                 Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
@@ -165,7 +166,6 @@ public class PaymentActivity extends AppCompatActivity {
                     }
                     @Override
                     public void onError(ANError error) {
-                        Log.d("rgqergqe", error.toString());
 
                     }
                 });

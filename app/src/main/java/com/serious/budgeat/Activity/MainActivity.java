@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -55,8 +56,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         if(!isNetworkAvailable()){
-            Intent intent = new Intent(MainActivity.this, LandingActivity.class);
-            startActivity(intent);
+            noInternet();
         }
 
         String email = preferences.getString("user_email", "");
@@ -135,6 +135,14 @@ public class MainActivity extends AppCompatActivity {
         goOrderFragment.setArguments(getIntent().getExtras());
 
         getSupportFragmentManager().beginTransaction().replace(R.id.bottomFragment, goOrderFragment).commit();
+    }
+
+    public void noInternet() {
+        NothingFragmentTop nothingFragmentTop = new NothingFragmentTop();
+
+        nothingFragmentTop.setArguments(getIntent().getExtras());
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.topFragment, nothingFragmentTop).commit();
     }
 
     public void getOrderFragment(String email){
