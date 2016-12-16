@@ -142,40 +142,30 @@ public class PaymentActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-//        AndroidNetworking.post("https://budgeat.stan.sh/user/"+ id +"/order")
-//                .addJSONObjectBody(jsonObject)
-//                .setTag("test")
-//                .setPriority(Priority.MEDIUM)
-//                .build()
-//                .getAsJSONArray(new JSONArrayRequestListener() {
-//                    @Override
-//                    public void onResponse(JSONArray response) {
+        AndroidNetworking.post("https://budgeat.stan.sh/user/"+ id +"/order")
+                .addJSONObjectBody(jsonObject)
+                .setTag("test")
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONArray(new JSONArrayRequestListener() {
+                    @Override
+                    public void onResponse(JSONArray response) {
 
-//                        try {
-//                            if(response.get("success").toString() =="") {
-//
-                                Order order = new Order();
-                                order.setBread(1);
-                                order.setBreadName("pain");
-                                order.setMeat(1);
-                                order.setMeatName("steak");
-                                order.setVegetable(1);
-                                order.setVegetablesName("salade");
-                                order.setCheese(1);
-                                order.setCheeseName("cantal");
+                        try {
+                            if(response.get(Integer.parseInt("success")).toString() == "") {
                                 Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
                                 startActivity(intent);
-//                            }
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                    @Override
-//                    public void onError(ANError error) {
-//
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    @Override
+                    public void onError(ANError error) {
 
-//                    }
-//                });
+
+                    }
+                });
     }
 
 }
