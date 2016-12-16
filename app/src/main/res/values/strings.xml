@@ -31,4 +31,7 @@
     <string name="h12">12h</string>
     <string name="retirementHour">Heure de retrait</string>
     <string name="je_commande">je commande</string>
+    <string name="commande_en_cours">Commande en cours :</string>
+    <string name="r_duction">Réduction</string>
+    <string name="total">Total</string>
 </resources>

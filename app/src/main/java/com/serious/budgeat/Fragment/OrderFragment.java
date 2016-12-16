@@ -54,6 +54,7 @@ public class OrderFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+
                             String id = response.get("id").toString();
 
                             getSchoolOrders(id, view);
@@ -82,7 +83,6 @@ public class OrderFragment extends Fragment {
                     public void onResponse(JSONObject response) {
                         try {
                             Double orders = Double.valueOf(response.get("achats").toString());
-                            Log.d("sergser", orders.toString());
                             getReduction(orders, view);
 
                         } catch (JSONException e) {
@@ -97,7 +97,7 @@ public class OrderFragment extends Fragment {
     }
 
     private void getReduction(Double reduc, View view){
-        final TextView textViewCompo = (TextView)view.findViewById(R.id.compo);
+        final TextView textViewCompo = (TextView)view.findViewById(R.id.sandwichComposition);
         final TextView textViewCalcul = (TextView)view.findViewById(R.id.calcul);
         final TextView textViewTotal = (TextView)view.findViewById(R.id.total);
         final Button couponButton = (Button)view.findViewById(R.id.couponButton);
@@ -106,6 +106,7 @@ public class OrderFragment extends Fragment {
 
         final Double reducString = Double.valueOf(price * 1 * (reduc / 100));
         final Double finalPrice = price - reducString;
+
 
         AndroidNetworking.get("http://budgeat.stan.sh/users/1/orders")
                 .setTag("test")
@@ -137,6 +138,7 @@ public class OrderFragment extends Fragment {
                                     Intent intent = new Intent(getActivity(), CouponActivity.class);
                                     intent.putExtra("SESSION_TOKEN", coupon.toString());
                                     startActivity(intent);
+
                                 }
                             });
 

@@ -51,13 +51,13 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    private void generateFragment(String id, String email, Boolean ordered){
+    private void generateFragment(String id, String email, Boolean ordered) {
 
         Calendar c = Calendar.getInstance();
         Integer hour = c.get(Calendar.HOUR_OF_DAY);
 
-        if (hour < 14 ) {
-            if(ordered){
+        if (hour < 14) {
+            if (ordered) {
                 getReductionView(id, email);
                 getOrderFragment(email);
                 Log.d("TEST", "COMANDE MATIN");
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 getNothingFragment();
             }
         } else {
-            if(ordered){
+            if (ordered) {
                 Log.d("TEST", "COMANDE APRES MIDI");
                 getReductionView(id, email);
                 getOrderFragment(email);
@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+
     }
 
     public void goToOrderFragment(){
