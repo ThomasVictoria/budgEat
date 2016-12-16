@@ -81,8 +81,8 @@ public class OrderFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            Integer orders = Integer.valueOf(response.get("achats").toString());
-
+                            Double orders = Double.valueOf(response.get("achats").toString());
+                            Log.d("sergser", orders.toString());
                             getReduction(orders, view);
 
                         } catch (JSONException e) {
@@ -96,16 +96,16 @@ public class OrderFragment extends Fragment {
                 });
     }
 
-    private void getReduction(Integer reduc, View view){
+    private void getReduction(Double reduc, View view){
         final TextView textViewCompo = (TextView)view.findViewById(R.id.compo);
         final TextView textViewCalcul = (TextView)view.findViewById(R.id.calcul);
         final TextView textViewTotal = (TextView)view.findViewById(R.id.total);
-//        final Button couponButton = (Button)view.findViewById(R.id.couponButton);
+        final Button couponButton = (Button)view.findViewById(R.id.couponButton);
         ;
         final Integer price = ((MainActivity)getActivity()).getPrice();
 
-        final Integer reducString = 1 - (reduc / 100);
-        final Integer finalPrice = price * reducString;
+        final Double reducString = Double.valueOf(price * 1 * (reduc / 100));
+        final Double finalPrice = price - reducString;
 
         AndroidNetworking.get("http://budgeat.stan.sh/users/1/orders")
                 .setTag("test")
@@ -114,34 +114,32 @@ public class OrderFragment extends Fragment {
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
+
                         for(Integer i = 0; i < response.length();i++){
 
-
                             try {
-                                Integer payed = Integer.valueOf(response.getJSONObject(i.toString()).get("is_payed").toString());
-
-
+                                Integer payed = Integer.valueOf(response.getJSONArray("orders").getJSONObject(i).get("is_payed").toString());
                                 if(payed == 0){
 
-                                    coupon = (Integer) response.getJSONObject(i.toString()).get("token");
+                                    coupon = Integer.valueOf(response.getJSONArray("orders").getJSONObject(i).get("token").toString());
 
                                     textViewCompo.setText(
-                                            response.getJSONObject(i.toString()).get("bread").toString() + " + " +
-                                                    response.getJSONObject(i.toString()).get("meat").toString() + " + " +
-                                                    response.getJSONObject(i.toString()).get("cheese").toString() + " + " +
-                                                    response.getJSONObject(i.toString()).get("legume").toString()
+                                            response.getJSONArray("orders").getJSONObject(i).get("bread").toString() + " + " +
+                                                    response.getJSONArray("orders").getJSONObject(i).get("meat").toString() + " + " +
+                                                    response.getJSONArray("orders").getJSONObject(i).get("cheese").toString() + " + " +
+                                                    response.getJSONArray("orders").getJSONObject(i).get("legume").toString()
                                     );
 
-                                    textViewCalcul.setText("6 - " + reducString.toString());
+                                    textViewCalcul.setText("6.00 € - " + reducString.toString() + " €");
                                     textViewTotal.setText(finalPrice + " €");
 
-//                                    couponButton.setOnClickListener(new View.OnClickListener() {
-//                                        public void onClick(View v) {
-//                                            Intent intent = new Intent(getActivity(), CouponActivity.class);
-//                                            intent.putExtra("SESSION_TOKEN", coupon.toString());
-//                                            startActivity(intent);
-//                                        }
-//                                    });
+                                    couponButton.setOnClickListener(new View.OnClickListener() {
+                                        public void onClick(View v) {
+                                            Intent intent = new Intent(getActivity(), CouponActivity.class);
+                                            intent.putExtra("SESSION_TOKEN", coupon.toString());
+                                            startActivity(intent);
+                                        }
+                                    });
                                 }
 
                             } catch (JSONException e) {
