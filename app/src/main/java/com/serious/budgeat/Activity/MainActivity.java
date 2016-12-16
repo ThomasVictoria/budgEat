@@ -23,9 +23,11 @@ public class MainActivity extends AppCompatActivity {
     final Integer price = 6;
     public Integer reducRate;
 
+    public Integer getPrice() { return price; }
     public void setReduc(Integer reduc){
         reducRate = reduc;
     }
+    public Integer getReduc(){ return reducRate; }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 //        getReductionView(id, email);
 //        getNothingFragment();
         getOrderFragment(id);
+
     }
 
     public void getOrderFragment(String id){
