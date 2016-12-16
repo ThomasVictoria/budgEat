@@ -60,6 +60,8 @@ public class PaymentActivity extends AppCompatActivity {
 
     @OnClick(R.id.sendPayment)
     void sendPayment(){
+
+        Log.d("uyfgciycf", "ytifik");
         findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
 
         TextView cardNumber = (TextView)findViewById(R.id.cardNumber);
@@ -105,6 +107,7 @@ public class PaymentActivity extends AppCompatActivity {
         Stripe stripe = null;
         try {
             stripe = new Stripe("pk_test_Z7Jygw96IdsAouhSoJbMTDsG");
+            sendRequest();
         } catch (AuthenticationException e) {
             e.printStackTrace();
         }
@@ -114,19 +117,19 @@ public class PaymentActivity extends AppCompatActivity {
                 new TokenCallback() {
                     public void onSuccess(Token token) {
 
-                        sendRequest(token);
+
 
                     }
                     public void onError(Exception error) {
                         // Show localized error message
+                        Log.d("ergqe", "eqrges");
 
                     }
                 }
         );
     }
 
-    private void sendRequest(Token token){
-
+    private void sendRequest(){
         sendOrder();
 
     }
@@ -134,7 +137,7 @@ public class PaymentActivity extends AppCompatActivity {
     private void sendOrder(){
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("has_meat", order.getMeat().toString());
+            jsonObject.put("has_charcut", order.getMeat().toString());
             jsonObject.put("has_legume", order.getVegetable().toString());
             jsonObject.put("bread_type", order.getBread().toString());
             jsonObject.put("has_cheese", order.getCheese().toString());
@@ -147,12 +150,12 @@ public class PaymentActivity extends AppCompatActivity {
                 .setTag("test")
                 .setPriority(Priority.MEDIUM)
                 .build()
-                .getAsJSONArray(new JSONArrayRequestListener() {
+                .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
-                    public void onResponse(JSONArray response) {
-
+                    public void onResponse(JSONObject response) {
+                        Log.d("piuhres", response.toString());
                         try {
-                            if(response.get(Integer.parseInt("success")).toString() == "") {
+                            if(response.get("success").toString() == "true") {
                                 Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
                                 startActivity(intent);
                             }
@@ -162,7 +165,7 @@ public class PaymentActivity extends AppCompatActivity {
                     }
                     @Override
                     public void onError(ANError error) {
-
+                        Log.d("rgqergqe", error.toString());
 
                     }
                 });

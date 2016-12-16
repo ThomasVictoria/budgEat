@@ -2,9 +2,6 @@ package com.serious.budgeat.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.net.Uri;
 
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -22,13 +19,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
 
-
-import com.androidnetworking.AndroidNetworking;
 import com.serious.budgeat.JsonFactory.JsonParserFactory;
 import com.serious.budgeat.R;
 import com.serious.budgeat.Utils;
@@ -39,7 +30,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -146,6 +136,7 @@ public class InscriptionActivity extends AppCompatActivity {
 
                 JSONObject jsonObject = new JSONObject();
                 try {
+                    jsonObject.put("name", email.getText().toString());
                     jsonObject.put("email", email.getText().toString());
                     jsonObject.put("password", password.getText().toString());
                     jsonObject.put("ecole_id", school_id);
@@ -181,8 +172,6 @@ public class InscriptionActivity extends AppCompatActivity {
                                         t.start();
 
 
-
-
                                         Intent intent = new Intent(InscriptionActivity.this, MainActivity.class);
                                         startActivity(intent);
                                     } else {
@@ -197,6 +186,7 @@ public class InscriptionActivity extends AppCompatActivity {
 
                             @Override
                             public void onError(ANError error) {
+                                Log.d("sergseg", error.toString());
                                 Toast.makeText(getApplicationContext(), "Erreur Reseaux", Toast.LENGTH_LONG).show();
                             }
                         });

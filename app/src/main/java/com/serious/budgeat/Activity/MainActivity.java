@@ -1,10 +1,14 @@
 package com.serious.budgeat.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -33,15 +37,27 @@ public class MainActivity extends AppCompatActivity {
     private static final String screenName = "Main";
     private Order order;
     final Integer price = 6;
-    final Integer TurnOver = 14;
+    final Integer TurnOver = 1;
 
     public Integer getPrice() { return price; }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        if(!isNetworkAvailable()){
+            Intent intent = new Intent(MainActivity.this, LandingActivity.class);
+            startActivity(intent);
+        }
 
         String email = preferences.getString("user_email", "");
         String id = preferences.getString("user_id", "");
@@ -62,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
                 getOrderFragment(email);
 
             } else {
-
                 getNothingFragment();
             }
         } else {
@@ -92,10 +107,9 @@ public class MainActivity extends AppCompatActivity {
                             String test = String.valueOf(response.get("success"));
                             generateFragment(id, email, false);
                         } catch (JSONException e) {
-                            for(Integer i = 0; i < response.length();i++){
-
                                 try {
-                                    Integer payed = Integer.valueOf(response.getJSONArray("orders").getJSONObject(i).get("is_payed").toString());
+                                    Integer payed = Integer.valueOf(response.getJSONArray("orders").getJSONObject(response.length()-1).get("is_payed").toString());
+                                    Log.d("qergqe", response.getJSONArray("orders").getJSONObject(response.length()-1).toString());
                                     if(payed == 0){
                                         generateFragment(id, email, true);
                                     } else {
@@ -106,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
                                     ex.printStackTrace();
 
                                 }
-                            }
                         }
                     }
                     @Override
