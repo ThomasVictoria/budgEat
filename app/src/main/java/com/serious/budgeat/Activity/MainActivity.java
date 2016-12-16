@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private void generateFragment(String id, String email){
 //        getReductionView(id, email);
 //        getNothingFragment();
-        getOrderFragment(email);
+            getOrderFragment(email);
 //        goToOrderFragment();
     }
 

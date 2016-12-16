@@ -32,6 +32,12 @@ public class LandingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String id = preferences.getString("user_id", "");
+        if (id.length() != 0) {
+            goToMain();
+        }
+
         TagManager tagManager = TagManager.getInstance(this);
 
         PendingResult<ContainerHolder> pending =
@@ -73,6 +79,11 @@ public class LandingActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_landing);
         ButterKnife.bind(this);
+    }
+
+    private void goToMain() {
+        Intent intent = new Intent(LandingActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 
     @Override

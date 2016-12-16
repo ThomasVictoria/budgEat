@@ -54,6 +54,7 @@ public class OrderFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+
                             String id = response.get("id").toString();
 
                             getSchoolOrders(id, view);
@@ -82,7 +83,6 @@ public class OrderFragment extends Fragment {
                     public void onResponse(JSONObject response) {
                         try {
                             Double orders = Double.valueOf(response.get("achats").toString());
-                            Log.d("sergser", orders.toString());
                             getReduction(orders, view);
 
                         } catch (JSONException e) {
@@ -107,6 +107,7 @@ public class OrderFragment extends Fragment {
         final Double reducString = Double.valueOf(price * 1 * (reduc / 100));
         final Double finalPrice = price - reducString;
 
+
         AndroidNetworking.get("http://budgeat.stan.sh/users/1/orders")
                 .setTag("test")
                 .setPriority(Priority.MEDIUM)
@@ -114,9 +115,7 @@ public class OrderFragment extends Fragment {
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
-
                         for(Integer i = 0; i < response.length();i++){
-
                             try {
                                 Integer payed = Integer.valueOf(response.getJSONArray("orders").getJSONObject(i).get("is_payed").toString());
                                 if(payed == 0){
