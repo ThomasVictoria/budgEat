@@ -11,10 +11,10 @@ public class CouponActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_coupon);
+        setContentView(R.layout.activity_receit);
 
         Bundle extras = getIntent().getExtras();
-        String token = extras.getString("name");
+        String token = "162";
 
         TextView textViewToken = (TextView)findViewById(R.id.token);
         textViewToken.setText(token);
