@@ -53,13 +53,13 @@ public class OrderActivity extends AppCompatActivity {
         if(order.getBread() == null) {
             generateView("bread");
         } else if(order.getMeat() == null) {
-            image.setImageResource(getResources().getIdentifier("sandwich_2", "drawable", getApplicationContext().getPackageName()));
+            image.setImageResource(getResources().getIdentifier("sandwich_1", "drawable", getApplicationContext().getPackageName()));
             generateView("meat");
         } else if(order.getCheese() == null) {
-            image.setImageResource(getResources().getIdentifier("sandwich_3", "drawable", getApplicationContext().getPackageName()));
+            image.setImageResource(getResources().getIdentifier("sandwich_2", "drawable", getApplicationContext().getPackageName()));
             generateView("cheese");
         } else if(order.getVegetable() == null) {
-            image.setImageResource(getResources().getIdentifier("sandwich_4", "drawable", getApplicationContext().getPackageName()));
+            image.setImageResource(getResources().getIdentifier("sandwich_3", "drawable", getApplicationContext().getPackageName()));
             generateView("legume");
         }
     }
