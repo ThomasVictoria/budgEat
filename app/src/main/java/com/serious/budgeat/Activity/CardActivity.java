@@ -32,6 +32,7 @@ public class CardActivity extends AppCompatActivity {
     static private final String screenName = "Card";
     private Order order;
     final private Double price = 6.0;
+    Double finalPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +44,6 @@ public class CardActivity extends AppCompatActivity {
         if (extras != null) {
             order = (new Gson()).fromJson(extras.getString("SESSION_ORDER"), Order.class);
         }
-
-
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String email = preferences.getString("user_email", "");
@@ -93,11 +92,22 @@ public class CardActivity extends AppCompatActivity {
                             TextView textViewPrice = (TextView)findViewById(R.id.price);
 
                             final Double reducString = Double.valueOf(price * 1 * (orders / 100));
-                            final Double finalPrice = price - reducString;
+                            finalPrice = price - reducString;
 
                             textViewreduction.setText(String.valueOf(orders.intValue())+"%");
                             textViewPrice.setText("Soit un prix de "+finalPrice+"€");
 
+                            Button button = (Button)findViewById(R.id.buttonPayment);
+                            button.setOnClickListener(new View.OnClickListener() {
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(CardActivity.this, PaymentActivity.class);
+
+                                    intent.putExtra("SESSION_ORDER", (new Gson()).toJson(order));
+                                    intent.putExtra("SESSION_PRICE", finalPrice);
+                                    startActivity(intent);
+
+                                }
+                            });
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -108,14 +118,6 @@ public class CardActivity extends AppCompatActivity {
 
                     }
                 });
-    }
-
-    @OnClick(R.id.buttonPayment)
-    void gotoPayment(){
-        Intent intent = new Intent(CardActivity.this, PaymentActivity.class);
-
-        intent.putExtra("SESSION_ORDER", (new Gson()).toJson(order));
-        startActivity(intent);
     }
 
     @OnClick(R.id.buttonReOrder)
