@@ -1,11 +1,17 @@
 package com.serious.budgeat.Activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.serious.budgeat.Fragment.GoOrderFragment;
 import com.serious.budgeat.Fragment.NothingFragmentBottom;
 import com.serious.budgeat.Fragment.NothingFragmentTop;
@@ -14,6 +20,9 @@ import com.serious.budgeat.Fragment.ReductionFragment;
 import com.serious.budgeat.Model.Order;
 import com.serious.budgeat.R;
 import com.serious.budgeat.Utils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
 
@@ -37,17 +46,71 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
 
-        generateFragment(id, email);
+        hasOrdered(id, email);
 
         ButterKnife.bind(this);
     }
 
+    private void generateFragment(String id, String email, Boolean ordered){
 
-    private void generateFragment(String id, String email){
-//        getReductionView(id, email);
-//        getNothingFragment();
-        getOrderFragment(email);
-//        goToOrderFragment();
+        Calendar c = Calendar.getInstance();
+        Integer hour = c.get(Calendar.HOUR_OF_DAY);
+
+        if (hour < 14 ) {
+            if(ordered){
+                getReductionView(id, email);
+                getOrderFragment(email);
+            } else {
+                getNothingFragment();
+            }
+        } else {
+            if(ordered){
+                getReductionView(id, email);
+                getOrderFragment(email);
+            } else {
+                getReductionView(id, email);
+                goToOrderFragment();
+            }
+        }
+//   getReductionView(id, email);
+//    getNothingFragment();
+//    getOrderFragment(email);
+//      goToOrderFragment();
+
+
+    }
+
+    public void hasOrdered(final String id, final String email){
+        AndroidNetworking.get("http://budgeat.stan.sh/users/1/orders")
+                .setTag("test")
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+
+                        for(Integer i = 0; i < response.length();i++){
+
+                            try {
+                                Integer payed = Integer.valueOf(response.getJSONArray("orders").getJSONObject(i).get("is_payed").toString());
+                                if(payed == 0){
+                                    generateFragment(id, email, true);
+                                } else {
+                                    generateFragment(id, email, false);
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+
+                            }
+                        }
+                    }
+                    @Override
+                    public void onError(ANError error) {
+
+                    }
+                });
     }
 
     public void goToOrderFragment(){
@@ -116,9 +179,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Calendar c = Calendar.getInstance();
-        Integer hour = c.get(Calendar.HOUR_OF_DAY);
-
         Utils.pushOpenScreenEvent(this, screenName);
     }
 
