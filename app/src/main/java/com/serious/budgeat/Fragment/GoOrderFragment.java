@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.serious.budgeat.Activity.OrderActivity;
 import com.serious.budgeat.R;
@@ -20,7 +21,7 @@ public class GoOrderFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_go_order, container, false);
 
-        Button button = (Button)view.findViewById(R.id.goToOrder);
+        LinearLayout button = (LinearLayout)view.findViewById(R.id.goToOrder);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), OrderActivity.class);

@@ -115,36 +115,33 @@ public class OrderFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
 
-                        for(Integer i = 0; i < response.length();i++){
+                        try {
+                            Integer i = response.getJSONArray("orders").length() - 1;
 
-                            try {
-                                Integer payed = Integer.valueOf(response.getJSONArray("orders").getJSONObject(i).get("is_payed").toString());
-                                if(payed == 0){
+                            Integer payed = Integer.valueOf(response.getJSONArray("orders").getJSONObject(i).get("is_payed").toString());
 
-                                    coupon = Integer.valueOf(response.getJSONArray("orders").getJSONObject(i).get("token").toString());
+                            coupon = Integer.valueOf(response.getJSONArray("orders").getJSONObject(i).get("token").toString());
 
-                                    textViewCompo.setText(
-                                            response.getJSONArray("orders").getJSONObject(i).get("bread").toString() + " + " +
-                                                    response.getJSONArray("orders").getJSONObject(i).get("meat").toString() + " + " +
-                                                    response.getJSONArray("orders").getJSONObject(i).get("cheese").toString() + " + " +
-                                                    response.getJSONArray("orders").getJSONObject(i).get("legume").toString()
-                                    );
+                            textViewCompo.setText(
+                                    response.getJSONArray("orders").getJSONObject(i).get("bread").toString() + " + " +
+                                            response.getJSONArray("orders").getJSONObject(i).get("meat").toString() + " + " +
+                                            response.getJSONArray("orders").getJSONObject(i).get("cheese").toString() + " + " +
+                                            response.getJSONArray("orders").getJSONObject(i).get("legume").toString()
+                            );
 
-                                    textViewCalcul.setText("6.00 € - " + reducString.toString() + " €");
-                                    textViewTotal.setText(finalPrice + " €");
+                            textViewCalcul.setText("6.00 € - " + reducString.toString() + " €");
+                            textViewTotal.setText(finalPrice + " €");
 
-                                    couponButton.setOnClickListener(new View.OnClickListener() {
-                                        public void onClick(View v) {
-                                            Intent intent = new Intent(getActivity(), CouponActivity.class);
-                                            intent.putExtra("SESSION_TOKEN", coupon.toString());
-                                            startActivity(intent);
-                                        }
-                                    });
+                            couponButton.setOnClickListener(new View.OnClickListener() {
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(getActivity(), CouponActivity.class);
+                                    intent.putExtra("SESSION_TOKEN", coupon.toString());
+                                    startActivity(intent);
                                 }
+                            });
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
                     @Override
